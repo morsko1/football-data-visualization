@@ -2,7 +2,7 @@
   "name": "football-data-visualization",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://morsko1.github.io/football-data-visualization",
+  "homepage": "http://morsko1.github.io/football-data-visualization",
   "dependencies": {
     "axios": "^0.16.2",
     "react": "^15.6.1",
