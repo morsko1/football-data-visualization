@@ -1,0 +1,36 @@
+table, td, th {
+  border-collapse: collapse;
+  border: 1px solid black;
+  padding: 0.3em;
+  background-color: #eee;
+}
+
+.centered {
+  text-align: center;
+}
+
+.abs-right {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.link-to-event {
+  border-bottom: 2px solid grey;
+  padding: 0.5em;
+  cursor: pointer;
+  margin-bottom: 0.4em;
+}
+.season {
+  display: flex;
+  padding-bottom: 1em;
+}
+.season div {
+  width: 33%;
+  text-align: center;
+  padding: 0.5em;
+}
+.season .prev,
+.season .next {
+  cursor: pointer;
+  background-color: #eee;
+}
