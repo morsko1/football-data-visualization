@@ -24,7 +24,7 @@ class App extends Component {
     // set previous year as a default
     const previousYear = new Date().getFullYear() - 1;
     let eventId = null;
-    const URL = 'api.football-data.org/v1/competitions/?season=' + previousYear;
+    const URL = 'http://api.football-data.org/v1/competitions/?season=' + previousYear;
     await axios.get(URL, this.state.requestParams)
     .then((res) => {
       res.data.forEach((item)=> {
@@ -42,7 +42,7 @@ class App extends Component {
 
   ajaxCallCompetitions (season) {
     // get the links table
-    const URL = 'api.football-data.org/v1/competitions/?season=' + season;
+    const URL = 'http://api.football-data.org/v1/competitions/?season=' + season;
     axios.get(URL, this.state.requestParams)
     .then((res) => {
       const competitionsList = res.data.map((item, i) => {
@@ -62,7 +62,7 @@ class App extends Component {
   }
 
   ajaxCallTableData (eventId) {
-    const URL = 'api.football-data.org/v1/competitions/' + eventId + '/leagueTable';
+    const URL = 'http://api.football-data.org/v1/competitions/' + eventId + '/leagueTable';
     axios.get(URL, this.state.requestParams)
     .then((res) => {
       if(!Array.isArray(res.data.standing)) {
