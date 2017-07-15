@@ -6,5 +6,6 @@
 To run the app locally:
 ```
 1. clone the repo
+2. npm install
 2. npm start
 ```
