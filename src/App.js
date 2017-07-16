@@ -6,98 +6,67 @@ class App extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      tableData: '',
-      competitionsList: '',
-      eventId: null,
-      season: null,
-      requestParams: {
-        headers: {
-        'X-Auth-Token': '5f800a66f45846cd95ff7351772e1f38'
-        },
-        type: 'GET',
-        dataType: 'json'
-      }
+      baseURL: 'https://raw.githubusercontent.com/morsko1/football-data-api/master/api/',
+      season: '2016-2017/',
+      league: 'england/premier-league/'
     };
     this.handleClick = this.handleClick.bind(this);
   }
-  async ajaxCallInitialData () {
-    // set previous year as a default
-    const previousYear = new Date().getFullYear() - 1;
-    let eventId = null;
-    const URL = 'http://api.football-data.org/v1/competitions/?season=' + previousYear;
-    await axios.get(URL, this.state.requestParams)
-    .then((res) => {
-      res.data.forEach((item)=> {
-        // set english premier league as a default
-        if (item.league === 'PL') {
-          eventId = item.id;
-        }
-      })
-      this.setState({season: previousYear, eventId: eventId});
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-  }
 
   ajaxCallCompetitions (season) {
-    // get the links table
-    const URL = 'http://api.football-data.org/v1/competitions/?season=' + season;
-    axios.get(URL, this.state.requestParams)
+    const URL = 'https://raw.githubusercontent.com/morsko1/football-data-api/master/api/' + season + 'championships.json';
+    axios.get(URL)
     .then((res) => {
-      const competitionsList = res.data.map((item, i) => {
+      const championshipsList = res.data.map((item, i) => {
         return <div 
                   className="link-to-event"
-                  key={item.caption}
-                  data-event-id={item.id}
+                  key={item.league}
+                  data-event-league={item.league}
                   onClick={this.handleClick}>
-                    {item.caption}
+                    {item.name}
                 </div>
       });
-      this.setState({competitionsList: competitionsList});
+      this.setState({championshipsList: championshipsList});
     })
     .catch(function (error) {
       console.log(error);
     });
   }
 
-  ajaxCallTableData (eventId) {
-    const URL = 'http://api.football-data.org/v1/competitions/' + eventId + '/leagueTable';
-    axios.get(URL, this.state.requestParams)
+  ajaxCallTableData (season, league) {
+    const URL = 'https://raw.githubusercontent.com/morsko1/football-data-api/master/api/' + season + league + 'standings.json';
+    axios.get(URL)
     .then((res) => {
-      if(!Array.isArray(res.data.standing)) {
-        return;
-      }
-      const tableData = res.data.standing.map((item, i) => {
+      const tableData = res.data.standings.map((item, i) => {
         return <tr key={i}>
-                <td>{item.position}</td>
-                <td>{item.teamName}</td>
-                <td className="centered">{item.playedGames}</td>
+                <td>{i + 1}</td>
+                <td>{item.name}</td>
+                <td className="centered">{item.games}</td>
                 <td className="centered">{item.wins}</td>
                 <td className="centered">{item.draws}</td>
                 <td className="centered">{item.losses}</td>
-                <td className="centered">{item.goals + ' - ' + item.goalsAgainst}</td>
-                <td className="centered">{item.points}</td>
+                <td className="centered">{item.goalsTotal + ' - ' + item.goalsTotalAllowed}</td>
+                <td className="centered">{item.pointsTotal}</td>
               </tr>
       });
       this.setState({tableData: tableData});
+      console.log(res);
     })
     .catch(function (error) {
       console.log(error);
     });
   }
-  handleClick (event) {
-    // get the ID of event from attribute 'data-event-id'
-    const eventId = event.target.dataset.eventId;
-    this.ajaxCallTableData(eventId);
+
+   async handleClick (event) {
+    const league = event.target.dataset.eventLeague;
+    await this.setState({league: league});
+    this.ajaxCallTableData(this.state.season, this.state.league);
  }
 
 
-  async componentDidMount () {
-    // firstable fetch an initial data, which others methods use
-    await this.ajaxCallInitialData();
+  componentDidMount () {
     this.ajaxCallCompetitions(this.state.season);
-    this.ajaxCallTableData(this.state.eventId);
+    this.ajaxCallTableData(this.state.season, this.state.league);
   }
   render() {
     return (
@@ -120,10 +89,10 @@ class App extends Component {
         <div className="abs-right">
           <div className="season">
             <div className="prev">&lt;=</div>
-            <div> {this.state.season} </div>
+            <div> {(this.state.season).slice(0, -1)} </div>
             <div className="next">=&gt;</div>
           </div>
-          {this.state.competitionsList}
+          {this.state.championshipsList}
         </div>
       </div>
     );

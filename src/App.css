@@ -23,6 +23,7 @@ table, td, th {
 .season {
   display: flex;
   padding-bottom: 1em;
+  min-width: 300px;
 }
 .season div {
   width: 33%;
