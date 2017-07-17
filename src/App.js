@@ -8,12 +8,14 @@ class App extends Component {
     this.state = {
       baseURL: 'https://raw.githubusercontent.com/morsko1/football-data-api/master/api/',
       season: '2016-2017/',
+      seasonID: 1,
       league: 'england/premier-league/'
     };
-    this.handleClick = this.handleClick.bind(this);
+    this.handleClickOnChampsList = this.handleClickOnChampsList.bind(this);
+    this.handleClickOnSeasons = this.handleClickOnSeasons.bind(this);
   }
 
-  ajaxCallCompetitions (season) {
+  ajaxCallChamps (season) {
     const URL = 'https://raw.githubusercontent.com/morsko1/football-data-api/master/api/' + season + 'championships.json';
     axios.get(URL)
     .then((res) => {
@@ -22,15 +24,13 @@ class App extends Component {
                   className="link-to-event"
                   key={item.league}
                   data-event-league={item.league}
-                  onClick={this.handleClick}>
+                  onClick={this.handleClickOnChampsList}>
                     {item.name}
                 </div>
       });
       this.setState({championshipsList: championshipsList});
     })
-    .catch(function (error) {
-      console.log(error);
-    });
+    .catch((error) => console.log(error));
   }
 
   ajaxCallTableData (season, league) {
@@ -50,24 +50,46 @@ class App extends Component {
               </tr>
       });
       this.setState({tableData: tableData});
-      console.log(res);
     })
-    .catch(function (error) {
-      console.log(error);
-    });
+    .catch((error) => console.log(error));
   }
 
-   async handleClick (event) {
+  async handleClickOnChampsList (event) {
     const league = event.target.dataset.eventLeague;
     await this.setState({league: league});
     this.ajaxCallTableData(this.state.season, this.state.league);
- }
+  }
 
+  async handleClickOnSeasons (event) {
+    const value = event.target.className;
+    let seasons;
+    const URL = 'https://raw.githubusercontent.com/morsko1/football-data-api/master/api/seasons.json';
+    await axios.get(URL)
+    .then((res) => {seasons = res.data})
+    .catch((error) => console.log(error));
 
-  componentDidMount () {
-    this.ajaxCallCompetitions(this.state.season);
+    if (value !== 'prev' && value !== 'next') return;
+    if (value === 'prev') {
+      if (this.state.seasonID === 0) return;
+      await this.setState((prevState) => {
+        return {seasonID: prevState.seasonID - 1,
+                season: seasons[prevState.seasonID - 1].season + '/'};
+      });
+    } else if (value === 'next') {
+      if (this.state.seasonID === 1) return;
+      await this.setState((prevState) => {
+        return {seasonID: prevState.seasonID + 1,
+                season: seasons[prevState.seasonID + 1].season + '/'};
+      });
+    }
     this.ajaxCallTableData(this.state.season, this.state.league);
   }
+
+  componentDidMount () {
+    this.ajaxCallChamps(this.state.season);
+    this.ajaxCallTableData(this.state.season, this.state.league);
+  }
+
   render() {
     return (
       <div>
@@ -87,7 +109,7 @@ class App extends Component {
           </tbody>
         </table>
         <div className="abs-right">
-          <div className="season">
+          <div className="season" onClick={this.handleClickOnSeasons}>
             <div className="prev">&lt;=</div>
             <div> {(this.state.season).slice(0, -1)} </div>
             <div className="next">=&gt;</div>
