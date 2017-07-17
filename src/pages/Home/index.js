@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import * as Constants from '../../constants/'
 import StandingsTable from './components/StandingsTable.js'
+import ChampionshipsComponent from './components/ChampionshipsComponent.js'
 
 class Home extends Component {
   constructor (props) {
@@ -124,14 +125,10 @@ class Home extends Component {
     return (
       <div>
         <StandingsTable tableData={this.state.tableData} />
-        <div className="abs-right">
-          <div className="season" onClick={this.handleClickOnSeasons}>
-            <div className="prev">&lt;=</div>
-            <div> {this.state.seasonView} </div>
-            <div className="next">=&gt;</div>
-          </div>
-          {this.state.championshipsList}
-        </div>
+        <ChampionshipsComponent
+          handleClickOnSeasons={this.handleClickOnSeasons}
+          seasonView={this.state.seasonView}
+          championshipsList={this.state.championshipsList} />
       </div>
     );
   }
