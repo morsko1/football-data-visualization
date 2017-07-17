@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import * as Constants from '../../constants/'
+import StandingsTable from './components/StandingsTable.js'
 
 class Home extends Component {
   constructor (props) {
@@ -11,6 +12,7 @@ class Home extends Component {
     this.handleClickOnChampionshipsList = this.handleClickOnChampionshipsList.bind(this);
     this.handleClickOnSeasons = this.handleClickOnSeasons.bind(this);
   }
+
   async ajaxCallInitialData () {
     // get season
     const URL = Constants.BASE_URL + 'seasons.json';
@@ -87,7 +89,7 @@ class Home extends Component {
     await axios.get(URL)
     .then((res) => {
       seasons = res.data;
-      this.setState({seasonMax: res.data.length - 1});
+      this.setState({seasonMax: seasons.length - 1});
     })
     .catch((error) => console.log(error));
 
@@ -121,21 +123,7 @@ class Home extends Component {
   render() {
     return (
       <div>
-        <table>
-          <tbody>
-            <tr>
-              <th>Место</th>
-              <th>Команда</th>
-              <th>Игры</th>
-              <th>В</th>
-              <th>Н</th>
-              <th>П</th>
-              <th>Голы</th>
-              <th>Очки</th>
-            </tr>
-            {this.state.tableData}
-          </tbody>
-        </table>
+        <StandingsTable tableData={this.state.tableData} />
         <div className="abs-right">
           <div className="season" onClick={this.handleClickOnSeasons}>
             <div className="prev">&lt;=</div>
