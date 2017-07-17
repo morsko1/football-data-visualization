@@ -65,7 +65,10 @@ class App extends Component {
     let seasons;
     const URL = this.state.baseURL + 'seasons.json';
     await axios.get(URL)
-    .then((res) => {seasons = res.data})
+    .then((res) => {
+      seasons = res.data;
+      this.setState({seasonMax: res.data.length - 1});
+    })
     .catch((error) => console.log(error));
 
     if (value !== 'prev' && value !== 'next') return;
@@ -76,7 +79,7 @@ class App extends Component {
                 season: seasons[prevState.seasonID - 1].season + '/'};
       });
     } else if (value === 'next') {
-      if (this.state.seasonID === 1) return;
+      if (this.state.seasonID === this.state.seasonMax) return;
       await this.setState((prevState) => {
         return {seasonID: prevState.seasonID + 1,
                 season: seasons[prevState.seasonID + 1].season + '/'};
