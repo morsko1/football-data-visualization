@@ -1,29 +1,50 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import * as Constants from '../../constants/'
 
 class Home extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      baseURL: 'https://raw.githubusercontent.com/morsko1/football-data-api/master/api/',
-      season: '2016-2017/',
-      seasonID: 1,
-      league: 'england/premier-league/'
+      // initialize state
     };
-    this.handleClickOnChampsList = this.handleClickOnChampsList.bind(this);
+    this.handleClickOnChampionshipsList = this.handleClickOnChampionshipsList.bind(this);
     this.handleClickOnSeasons = this.handleClickOnSeasons.bind(this);
   }
+  async ajaxCallInitialData () {
+    // get season
+    const URL = Constants.BASE_URL + 'seasons.json';
+    await axios.get(URL)
+    .then ((res) => {
+      const seasonID = res.data.length - 1;
+      this.setState({
+        seasonID: seasonID,
+        seasonPath: res.data[res.data.length - 1].season + '/',
+        seasonView: res.data[res.data.length - 1].season
+      });
+    })
+    .catch((error) => console.log(error));
 
-  ajaxCallChamps (season) {
-    const URL = this.state.baseURL + season + 'championships.json';
+    // get league path
+    const URL2 = Constants.BASE_URL + this.state.seasonPath + 'championships.json';
+    await axios.get(URL2)
+    .then ((res) => {
+      const leaguePath = res.data[0].league;
+      this.setState({leaguePath: leaguePath});
+    })
+    .catch((error) => console.log(error));
+  }
+
+  ajaxCallChampionships (season) {
+    const URL = Constants.BASE_URL + season + 'championships.json';
     axios.get(URL)
     .then((res) => {
       const championshipsList = res.data.map((item, i) => {
         return <div 
                   className="link-to-event"
                   key={item.league}
-                  data-event-league={item.league}
-                  onClick={this.handleClickOnChampsList}>
+                  data-league-path={item.league}// атрибут: путь к конкретной лиге, используется в фенкции handleClickOnChampionshipsList
+                  onClick={this.handleClickOnChampionshipsList}>
                     {item.name}
                 </div>
       });
@@ -33,7 +54,7 @@ class Home extends Component {
   }
 
   ajaxCallTableData (season, league) {
-    const URL = this.state.baseURL + season + league + 'standings.json';
+    const URL = Constants.BASE_URL + season + league + 'standings.json';
     axios.get(URL)
     .then((res) => {
       const tableData = res.data.standings.map((item, i) => {
@@ -53,16 +74,16 @@ class Home extends Component {
     .catch((error) => console.log(error));
   }
 
-  async handleClickOnChampsList (event) {
-    const league = event.target.dataset.eventLeague;
-    await this.setState({league: league});
-    this.ajaxCallTableData(this.state.season, this.state.league);
+  async handleClickOnChampionshipsList (event) {
+    const leaguePath = event.target.dataset.leaguePath;
+    await this.setState({leaguePath: leaguePath});
+    this.ajaxCallTableData(this.state.seasonPath, this.state.leaguePath);
   }
 
   async handleClickOnSeasons (event) {
-    const value = event.target.className;
+    const targetValue = event.target.className;
     let seasons;
-    const URL = this.state.baseURL + 'seasons.json';
+    const URL = Constants.BASE_URL + 'seasons.json';
     await axios.get(URL)
     .then((res) => {
       seasons = res.data;
@@ -70,26 +91,31 @@ class Home extends Component {
     })
     .catch((error) => console.log(error));
 
-    if (value !== 'prev' && value !== 'next') return;
-    if (value === 'prev') {
-      if (this.state.seasonID === 0) return;
+    if (targetValue !== 'prev' && targetValue !== 'next') return;
+    if (targetValue === 'prev') {// нажата кнопка 'предидущий'
+      if (this.state.seasonID === 0) return;// если сезон первый - return
       await this.setState((prevState) => {
         return {seasonID: prevState.seasonID - 1,
-                season: seasons[prevState.seasonID - 1].season + '/'};
+                seasonPath: seasons[prevState.seasonID - 1].season + '/',
+                seasonView: seasons[prevState.seasonID - 1].season
+        };
       });
-    } else if (value === 'next') {
-      if (this.state.seasonID === this.state.seasonMax) return;
+    } else if (targetValue === 'next') {// нажата кнопка 'следующий'
+      if (this.state.seasonID === this.state.seasonMax) return;// если сезон последний - return
       await this.setState((prevState) => {
         return {seasonID: prevState.seasonID + 1,
-                season: seasons[prevState.seasonID + 1].season + '/'};
+                seasonPath: seasons[prevState.seasonID + 1].season + '/',
+                seasonView: seasons[prevState.seasonID + 1].season
+        };
       });
     }
-    this.ajaxCallTableData(this.state.season, this.state.league);
+    this.ajaxCallTableData(this.state.seasonPath, this.state.leaguePath);
   }
 
-  componentDidMount () {
-    this.ajaxCallChamps(this.state.season);
-    this.ajaxCallTableData(this.state.season, this.state.league);
+  async componentDidMount () {
+    await this.ajaxCallInitialData();
+    this.ajaxCallChampionships(this.state.seasonPath);
+    this.ajaxCallTableData(this.state.seasonPath, this.state.leaguePath);
   }
 
   render() {
@@ -113,7 +139,7 @@ class Home extends Component {
         <div className="abs-right">
           <div className="season" onClick={this.handleClickOnSeasons}>
             <div className="prev">&lt;=</div>
-            <div> {(this.state.season).slice(0, -1)} </div>
+            <div> {this.state.seasonView} </div>
             <div className="next">=&gt;</div>
           </div>
           {this.state.championshipsList}
@@ -121,6 +147,7 @@ class Home extends Component {
       </div>
     );
   }
+
 }
 
 export default Home;
