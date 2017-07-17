@@ -16,7 +16,7 @@ class App extends Component {
   }
 
   ajaxCallChamps (season) {
-    const URL = 'https://raw.githubusercontent.com/morsko1/football-data-api/master/api/' + season + 'championships.json';
+    const URL = this.state.baseURL + season + 'championships.json';
     axios.get(URL)
     .then((res) => {
       const championshipsList = res.data.map((item, i) => {
@@ -34,7 +34,7 @@ class App extends Component {
   }
 
   ajaxCallTableData (season, league) {
-    const URL = 'https://raw.githubusercontent.com/morsko1/football-data-api/master/api/' + season + league + 'standings.json';
+    const URL = this.state.baseURL + season + league + 'standings.json';
     axios.get(URL)
     .then((res) => {
       const tableData = res.data.standings.map((item, i) => {
@@ -63,7 +63,7 @@ class App extends Component {
   async handleClickOnSeasons (event) {
     const value = event.target.className;
     let seasons;
-    const URL = 'https://raw.githubusercontent.com/morsko1/football-data-api/master/api/seasons.json';
+    const URL = this.state.baseURL + 'seasons.json';
     await axios.get(URL)
     .then((res) => {seasons = res.data})
     .catch((error) => console.log(error));
