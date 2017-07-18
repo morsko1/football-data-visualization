@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class ChampionshipsList extends Component {
+class ChampionshipsComponent extends Component {
 
   render() {
     return (
@@ -16,4 +16,4 @@ class ChampionshipsList extends Component {
   }
 }
 
-export default ChampionshipsList;
+export default ChampionshipsComponent;

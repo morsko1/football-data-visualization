@@ -3,10 +3,10 @@ import './App.css';
 import {
   HashRouter as Router,
   Route,
-  // Link,
   Switch
-} from 'react-router-dom'
+} from 'react-router-dom';
 import Home from './pages/Home/';
+import Team from './pages/Team/';
 import NotFound from './pages/NotFound/';
 
 class App extends Component {
@@ -15,6 +15,7 @@ class App extends Component {
       <Router>
         <Switch>
           <Route exact path="/" component={Home}/>
+          <Route exact path="/:season/:country/:league/:team" component={Team}/>
           <Route component={NotFound}/>
         </Switch>
       </Router>
