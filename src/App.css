@@ -4,6 +4,9 @@ table, td, th {
   padding: 0.3em;
   background-color: #eee;
 }
+th {
+  background-color: #ddd;
+}
 .centered {
   text-align: center;
 }
