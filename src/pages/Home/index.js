@@ -47,7 +47,7 @@ class Home extends Component {
     .then((res) => {
       const championshipsList = res.data.map((item, i) => {
         return <div 
-                  className="link-to-event"
+                  className={'link-to-event ' + ((i === 0)?'active':'')}// .active для первой ссылки
                   key={item.league}
                   data-country={item.country}// атрибут: путь к конкретной стране, для функции handleClickOnChampionshipsList
                   data-league={item.league}// атрибут: путь к конкретной лиге, для функции handleClickOnChampionshipsList
@@ -83,6 +83,16 @@ class Home extends Component {
   }
 
   async handleClickOnChampionshipsList (event) {
+    // lightening active championship link
+    const target = event.target;
+    if (target.classList.contains('active')) return;
+    const parent = target.parentElement;
+    for (let i=0; i<parent.children.length; i++) {
+      const elem = parent.children[i];
+      elem.classList.remove('active');
+    }
+    target.classList.add('active');
+
     await this.setState({
       country: event.target.dataset.country,
       league: event.target.dataset.league

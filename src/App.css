@@ -4,11 +4,9 @@ table, td, th {
   padding: 0.3em;
   background-color: #eee;
 }
-
 .centered {
   text-align: center;
 }
-
 .abs-right {
   position: absolute;
   top: 0;
@@ -18,7 +16,6 @@ table, td, th {
   border-bottom: 2px solid grey;
   padding: 0.5em;
   cursor: pointer;
-  margin-bottom: 0.4em;
 }
 .season {
   display: flex;
@@ -33,5 +30,8 @@ table, td, th {
 .season .prev,
 .season .next {
   cursor: pointer;
+  background-color: #eee;
+}
+.active {
   background-color: #eee;
 }

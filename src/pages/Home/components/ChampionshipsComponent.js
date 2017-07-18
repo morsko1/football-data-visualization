@@ -10,7 +10,9 @@ class ChampionshipsComponent extends Component {
           <div> {this.props.seasonView} </div>
           <div className="next">=&gt;</div>
         </div>
-        {this.props.championshipsList}
+        <div>
+          {this.props.championshipsList}
+        </div>
       </div>
     );
   }
