@@ -78,3 +78,53 @@ a:active {
 .active {
   border-bottom: 3px solid #000;
 }
+
+/* ========================== TEAM COMPONENT =======================*/
+.team-name {
+  text-align: center;
+}
+.control-statistics {
+  display: flex;
+  margin: 0 auto;
+  max-width: 500px;
+  margin-bottom: 0.5em;
+}
+.control-statistics div {
+  flex-direction: center;
+  width: 50%;
+  text-align: center;
+  padding: 0.3em;
+  cursor: pointer;
+}
+.game-single {
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 0.5em;
+  padding: 0.3em;
+  background-color: #eee;
+  position: relative;
+}
+.game-num {
+  position: absolute;
+  top: 0.3em;
+  left: 0.3em;
+}
+.game-single .game-date {
+  text-align: center;
+}
+.game-teams {
+  display: flex;
+}
+.game-teams div {
+  width: 50%;
+  text-align: center;
+}
+.game-goals {
+  display: flex;
+}
+.game-goals div {
+  width: 50%;
+  text-align: center;
+}
+/* ========================== TEAM COMPONENT END =======================*/
