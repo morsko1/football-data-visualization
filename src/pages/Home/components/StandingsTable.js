@@ -4,18 +4,18 @@ class StandingsTable extends Component {
 
   render() {
     return (
-      <table>
+      <table className="standings-table">
         <caption>{this.props.tableCaption}</caption>
         <tbody>
           <tr>
-            <th>Место</th>
-            <th>Команда</th>
-            <th>Игры</th>
-            <th>В</th>
-            <th>Н</th>
-            <th>П</th>
-            <th>Голы</th>
-            <th>Очки</th>
+            <th>Rank</th>
+            <th>Team</th>
+            <th>G</th>
+            <th>W</th>
+            <th>D</th>
+            <th>L</th>
+            <th>Goals</th>
+            <th>Pts</th>
           </tr>
           {this.props.tableData}
         </tbody>

@@ -1,34 +1,74 @@
-table, td, th {
+body {
+
+}
+a:link {
+  text-decoration: underline;
+  color: #000;
+  font-weight: bold;
+}
+a:visited {
+  text-decoration: none;
+  color: #000;
+  font-weight: bold;
+}
+a:hover {
+  text-decoration: none;
+}
+a:active {
+  text-decoration: none;
+}
+#root {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.standings-table {
+  margin: 0 auto;
+  border-collapse: collapse;
+}
+.standings-table table,
+.standings-table td,
+.standings-table th {
   border-collapse: collapse;
   border: 1px solid black;
   padding: 0.3em;
-  background-color: #eee;
 }
-th {
+.standings-table th {
   background-color: #ddd;
+}
+.standings-table tr:nth-child(odd) {
+  background-color: #eee;
 }
 .centered {
   text-align: center;
 }
-.abs-right {
-  position: absolute;
-  top: 0;
-  right: 0;
+.championships-component {
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 0.5em;
 }
-.link-to-event {
-  border-bottom: 2px solid grey;
+.championships-list{
+  display: flex;
+  justify-content: center;
+}
+.link-to-championship {
   padding: 0.5em;
   cursor: pointer;
 }
+.link-to-team {
+
+}
 .season {
   display: flex;
-  padding-bottom: 1em;
   min-width: 300px;
+  max-width: 400px;
+  margin: 0 auto;
 }
 .season div {
+  justify-content: center;
   width: 33%;
   text-align: center;
-  padding: 0.5em;
+  padding: 0.3em;
+  font-weight: bold;
 }
 .season .prev,
 .season .next {
@@ -36,5 +76,5 @@ th {
   background-color: #eee;
 }
 .active {
-  background-color: #eee;
+  border-bottom: 3px solid #000;
 }

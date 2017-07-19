@@ -58,7 +58,7 @@ class Home extends Component {
       const championshipsList = res.data.map((item, i) => {
         const additionClass = (sessionStorage.getItem('league') === item.league) ? 'active': '';
         return <div 
-                  className={'link-to-event ' + additionClass}// .active для активной ссылки
+                  className={'link-to-championship ' + additionClass}// .active для активной ссылки
                   key={item.league}
                   data-country={item.country}// атрибут: путь к конкретной стране, для функции handleClickOnChampionshipsList
                   data-league={item.league}// атрибут: путь к конкретной лиге, для функции handleClickOnChampionshipsList
@@ -76,13 +76,13 @@ class Home extends Component {
     const URL = `${Constants.BASE_URL}${season}/${country}/${league}/standings.json`;
     axios.get(URL)
     .then((res) => {
-      const tableCaption = res.data.name;
+      // const tableCaption = res.data.name;
       // console.log(tableCaption);
       const tableData = res.data.standings.map((item, i) => {
         return <tr key={i}>
                 <td>{i + 1}</td>
                 {/*ссылка на конкретную команду*/}
-                <td><Link to={`${season}/${country}/${league}/${item.name}`} >{item.name}</Link></td>
+                <td><Link to={`${season}/${country}/${league}/${item.name}`} className="link-to-team">{item.name}</Link></td>
                 <td className="centered">{item.games}</td>
                 <td className="centered">{item.wins}</td>
                 <td className="centered">{item.draws}</td>
@@ -92,8 +92,8 @@ class Home extends Component {
               </tr>
       });
       this.setState({
-        tableData: tableData,
-        tableCaption: tableCaption
+        tableData: tableData
+        // tableCaption: tableCaption
       });
     })
     .catch((error) => console.log(error));
@@ -170,13 +170,12 @@ class Home extends Component {
   render() {
     return (
       <div>
-        <StandingsTable 
-          tableCaption={this.state.tableCaption}
-          tableData={this.state.tableData} />
         <ChampionshipsComponent
           handleClickOnSeasons={this.handleClickOnSeasons}
           seasonView={this.state.season}
           championshipsList={this.state.championshipsList} />
+        <StandingsTable
+          tableData={this.state.tableData} />
       </div>
     );
   }
