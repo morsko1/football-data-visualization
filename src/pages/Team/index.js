@@ -8,7 +8,6 @@ class Team extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      // summary: ''
     };
   }
 
@@ -60,6 +59,7 @@ class Team extends Component {
   async goToAnotherTeam (team, event) {
     await this.setState({team: team});
     this.ajaxCallGames (this.state.season, this.state.country, this.state.league, this.state.team);
+    this.ajaxCallSummary (this.state.season, this.state.country, this.state.league, this.state.team);
   }
 
   ajaxCallSummary (season, country, league, team) {
