@@ -68,11 +68,44 @@ class Team extends Component {
         console.log(item);
         const summary = <div className="summary-content">
                           <div>Games: {item.games}</div>
-                          <div>Wins: {item.wins}</div>
-                          <div>Draws: {item.draws}</div>
-                          <div>Losses: {item.losses}</div>
                           <div>Goals scored: {item.goalsTotal}</div>
                           <div>Goals allowed: {item.goalsTotalAllowed}</div>
+                          <table className="ftr-table">
+                            <tbody>
+                              <tr>
+                                <td>Wins</td>
+                                <td>Draws</td>
+                                <td>Losses</td>
+                              </tr>
+                              <tr>
+                                <td colSpan={3} className="centered">Total</td>
+                              </tr>
+                              <tr>
+                                <td className="centered">{item.wins}</td>
+                                <td className="centered">{item.draws}</td>
+                                <td className="centered">{item.losses}</td>
+                              </tr>
+                              <tr>
+                                <td colSpan={3} className="centered">Home</td>
+                              </tr>
+                              <tr>
+                                <td className="centered">{item.winsHome}</td>
+                                <td className="centered">{item.drawsHome}</td>
+                                <td className="centered">{item.lossesHome}</td>
+                              </tr>
+                              <tr>
+                                <td colSpan={3} className="centered">Away</td>
+                              </tr>
+                              <tr>
+                                <td className="centered">{item.winsAway}</td>
+                                <td className="centered">{item.drawsAway}</td>
+                                <td className="centered">{item.lossesAway}</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                          <div>Goals Total: {item.goalsTotal + ' - ' + item.goalsTotalAllowed}</div>
+                          <div>Goals Home: {item.goalsHome + ' - ' + item.goalsHomeAllowed}</div>
+                          <div>Goals Away: {item.goalsAway + ' - ' + item.goalsAwayAllowed}</div>
                         </div>
         this.setState({summary: summary});
       })

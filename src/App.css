@@ -153,4 +153,17 @@ a:active {
 .summary-content {
   padding: 0.3em;
 }
+/*.ftr-table*/
+
+.ftr-table {
+  margin: 0 auto;
+  border-collapse: collapse;
+}
+.ftr-table table,
+.ftr-table td,
+.ftr-table th {
+  border-collapse: collapse;
+  border: 1px solid black;
+  padding: 0.3em;
+}
 /* ========================== TEAM COMPONENT END =======================*/
