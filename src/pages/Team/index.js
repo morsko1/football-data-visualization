@@ -35,8 +35,12 @@ class Team extends Component {
                         <span className="game-num">{gameNum}</span>
                         <div className="game-date">{item.date}</div>
                         <div className="game-teams">
-                          <div className="game-home-team">{item.homeTeam}</div>
-                          <div className="game-away-team">{item.awayTeam}</div>
+                          <div className="game-home-team">
+                            <Link className="link-to-team" to={`${item.homeTeam}`} onClick={this.goToAnotherTeam.bind(this, item.homeTeam)}>{item.homeTeam}</Link>
+                          </div>
+                          <div className="game-away-team">
+                            <Link className="link-to-team" to={`${item.awayTeam}`} onClick={this.goToAnotherTeam.bind(this, item.awayTeam)}>{item.awayTeam}</Link>
+                          </div>
                         </div>
                         <div className="game-goals">
                           <div className="game-home-team-goals">{item.fullTimeHomeTeamGoals}</div>
@@ -50,9 +54,14 @@ class Team extends Component {
     .catch((error) => console.log(error));
   }
 
+  async goToAnotherTeam (team, event) {
+    await this.setState({team: team});
+    this.ajaxCallGames (this.state.season, this.state.country, this.state.league, this.state.team);
+  }
+
   async componentDidMount() {
     await this.saveLinkPropsToState(this.props.match.params);
-    this.ajaxCallGames (this.state.season, this.state.country, this.state.league, this.state.team);
+    await this.ajaxCallGames (this.state.season, this.state.country, this.state.league, this.state.team);
   }
 
   render() {

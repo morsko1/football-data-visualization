@@ -76,8 +76,6 @@ class Home extends Component {
     const URL = `${Constants.BASE_URL}${season}/${country}/${league}/standings.json`;
     axios.get(URL)
     .then((res) => {
-      // const tableCaption = res.data.name;
-      // console.log(tableCaption);
       const tableData = res.data.standings.map((item, i) => {
         return <tr key={i}>
                 <td>{i + 1}</td>
@@ -91,10 +89,7 @@ class Home extends Component {
                 <td className="centered">{item.pointsTotal}</td>
               </tr>
       });
-      this.setState({
-        tableData: tableData
-        // tableCaption: tableCaption
-      });
+      this.setState({tableData: tableData});
     })
     .catch((error) => console.log(error));
   }
