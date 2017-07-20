@@ -59,9 +59,44 @@ class Team extends Component {
     this.ajaxCallGames (this.state.season, this.state.country, this.state.league, this.state.team);
   }
 
+  ajaxCallSummary (season, country, league, team) {
+    const URL = `${Constants.BASE_URL}${season}/${country}/${league}/standings.json`;
+    axios.get(URL)
+    .then ((res) => {
+      res.data.standings.forEach((item, i, arr) => {
+        if (item.name !== team) return;
+        console.log(item);
+        const summary = <div className="summary-content">
+                          <div>Games: {item.games}</div>
+                          <div>Wins: {item.wins}</div>
+                          <div>Draws: {item.draws}</div>
+                          <div>Losses: {item.losses}</div>
+                          <div>Goals scored: {item.goalsTotal}</div>
+                          <div>Goals allowed: {item.goalsTotalAllowed}</div>
+                        </div>
+        this.setState({summary: summary});
+      })
+    })
+    .catch((error) => console.log(error));
+  }
+
+  handleClickOnTabs (event) {
+    const tabcontent = document.getElementsByClassName('tabcontent');
+    for (let i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].style.display = 'none';
+    }
+    const tablinks = document.getElementsByClassName('tablink');
+      for (let i = 0; i < tablinks.length; i++) {
+        tablinks[i].classList.remove('active');
+      }
+    document.getElementById(event.target.dataset.active).style.display = 'block';
+    event.target.classList.add('active');
+  }
+
   async componentDidMount() {
     await this.saveLinkPropsToState(this.props.match.params);
-    await this.ajaxCallGames (this.state.season, this.state.country, this.state.league, this.state.team);
+    this.ajaxCallGames (this.state.season, this.state.country, this.state.league, this.state.team);
+    this.ajaxCallSummary (this.state.season, this.state.country, this.state.league, this.state.team);
   }
 
   render() {
@@ -69,12 +104,15 @@ class Team extends Component {
       <div>
         <Link to="/">Home</Link>
         <h3 className="team-name">{this.state.team}</h3>
-        <div className="control-statistics">
-          <div className="games-list active">Games list</div>
-          <div className="summary">Summary</div>
+        <div className="control-statistics" onClick={this.handleClickOnTabs}>
+          <div data-active="games-list" className="games-list-tab tablink active">Games list</div>
+          <div data-active="summary" className="summary-tab tablink">Summary</div>
         </div>
-        <div className="games-list">
+        <div id="games-list" className="games-list tabcontent">
           {this.state.gamesList}
+        </div>
+        <div id="summary" className="summary tabcontent">
+          {this.state.summary}
         </div>
       </div>
     );

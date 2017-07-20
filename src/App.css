@@ -96,10 +96,15 @@ a:active {
   padding: 0.3em;
   cursor: pointer;
 }
-.game-single {
+.games-list{
   max-width: 500px;
   margin-left: auto;
   margin-right: auto;
+}
+.game-single {
+  /*max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;*/
   margin-bottom: 0.5em;
   padding: 0.3em;
   background-color: #eee;
@@ -126,5 +131,26 @@ a:active {
 .game-goals div {
   width: 50%;
   text-align: center;
+}
+
+.tabcontent{
+  display: none;
+  animation: fadeEffect 0.5s;
+}
+#games-list {
+  display: block;
+}
+@keyframes fadeEffect {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+.summary {
+  max-width: 500px;
+  margin: 0 auto;
+  background-color: #eee;
+}
+.summary-content {
+  padding: 0.3em;
 }
 /* ========================== TEAM COMPONENT END =======================*/
