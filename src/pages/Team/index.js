@@ -2,11 +2,14 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import * as Constants from '../../constants/';
+import Summary from './components/Summary.js';
 
 class Team extends Component {
   constructor (props) {
     super(props);
-    this.state = {};
+    this.state = {
+      // summary: ''
+    };
   }
 
   saveLinkPropsToState (params) {
@@ -65,50 +68,8 @@ class Team extends Component {
     .then ((res) => {
       res.data.standings.forEach((item, i, arr) => {
         if (item.name !== team) return;
-        console.log(item);
-        const summary = <div className="summary-content">
-                          <div>Games: {item.games}</div>
-                          <div>Goals scored: {item.goalsTotal}</div>
-                          <div>Goals allowed: {item.goalsTotalAllowed}</div>
-                          <table className="ftr-table">
-                            <tbody>
-                              <tr>
-                                <td>Wins</td>
-                                <td>Draws</td>
-                                <td>Losses</td>
-                              </tr>
-                              <tr>
-                                <td colSpan={3} className="centered">Total</td>
-                              </tr>
-                              <tr>
-                                <td className="centered">{item.wins}</td>
-                                <td className="centered">{item.draws}</td>
-                                <td className="centered">{item.losses}</td>
-                              </tr>
-                              <tr>
-                                <td colSpan={3} className="centered">Home</td>
-                              </tr>
-                              <tr>
-                                <td className="centered">{item.winsHome}</td>
-                                <td className="centered">{item.drawsHome}</td>
-                                <td className="centered">{item.lossesHome}</td>
-                              </tr>
-                              <tr>
-                                <td colSpan={3} className="centered">Away</td>
-                              </tr>
-                              <tr>
-                                <td className="centered">{item.winsAway}</td>
-                                <td className="centered">{item.drawsAway}</td>
-                                <td className="centered">{item.lossesAway}</td>
-                              </tr>
-                            </tbody>
-                          </table>
-                          <div>Goals Total: {item.goalsTotal + ' - ' + item.goalsTotalAllowed}</div>
-                          <div>Goals Home: {item.goalsHome + ' - ' + item.goalsHomeAllowed}</div>
-                          <div>Goals Away: {item.goalsAway + ' - ' + item.goalsAwayAllowed}</div>
-                        </div>
-        this.setState({summary: summary});
-      })
+        this.setState({summary: item});
+      });
     })
     .catch((error) => console.log(error));
   }
@@ -126,13 +87,14 @@ class Team extends Component {
     event.target.classList.add('active');
   }
 
-  async componentDidMount() {
+  async componentWillMount() {
     await this.saveLinkPropsToState(this.props.match.params);
     this.ajaxCallGames (this.state.season, this.state.country, this.state.league, this.state.team);
     this.ajaxCallSummary (this.state.season, this.state.country, this.state.league, this.state.team);
   }
 
   render() {
+    const summaryComponent = ('summary' in this.state) ? <Summary summary={ this.state.summary } /> : null;
     return (
       <div>
         <Link to="/">Home</Link>
@@ -144,9 +106,7 @@ class Team extends Component {
         <div id="games-list" className="games-list tabcontent">
           {this.state.gamesList}
         </div>
-        <div id="summary" className="summary tabcontent">
-          {this.state.summary}
-        </div>
+        {summaryComponent}
       </div>
     );
   }
