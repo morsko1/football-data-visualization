@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import * as Constants from '../../constants/';
+import GamesList from './components/GamesList.js';
 import Summary from './components/Summary.js';
 
 class Team extends Component {
@@ -9,6 +10,7 @@ class Team extends Component {
     super(props);
     this.state = {
     };
+    this.goToAnotherTeam = this.goToAnotherTeam.bind(this);
   }
 
   saveLinkPropsToState (params) {
@@ -25,38 +27,20 @@ class Team extends Component {
   }
 
   ajaxCallGames (season, country, league, team) {
-    let gameNum = 0;
     let gamesList= [];
     const URL = `${Constants.BASE_URL}${season}/${country}/${league}/games.json`;
     axios.get(URL)
     .then ((res) => {
       res.data.games.forEach((item, i) => {
         if (item.homeTeam !== team && item.awayTeam !== team) return;
-        gameNum = gameNum + 1;
-        const game = <div key={item.date} className="game-single">
-                        <span className="game-num">{gameNum}</span>
-                        <div className="game-date">{item.date}</div>
-                        <div className="game-teams">
-                          <div className="game-home-team">
-                            <Link className="link-to-team" to={`${item.homeTeam}`} onClick={this.goToAnotherTeam.bind(this, item.homeTeam)}>{item.homeTeam}</Link>
-                          </div>
-                          <div className="game-away-team">
-                            <Link className="link-to-team" to={`${item.awayTeam}`} onClick={this.goToAnotherTeam.bind(this, item.awayTeam)}>{item.awayTeam}</Link>
-                          </div>
-                        </div>
-                        <div className="game-goals">
-                          <div className="game-home-team-goals">{item.fullTimeHomeTeamGoals}</div>
-                          <div className="game-away-team-goals">{item.fullTimeAwayTeamGoals}</div>
-                        </div>
-                      </div>
-        gamesList.push(game);
+        gamesList.push(item);
       });
       this.setState({gamesList: gamesList});
     })
     .catch((error) => console.log(error));
   }
 
-  async goToAnotherTeam (team, event) {
+  async goToAnotherTeam (team) {
     await this.setState({team: team});
     this.ajaxCallGames (this.state.season, this.state.country, this.state.league, this.state.team);
     this.ajaxCallSummary (this.state.season, this.state.country, this.state.league, this.state.team);
@@ -94,6 +78,7 @@ class Team extends Component {
   }
 
   render() {
+    const gamesListComponent = ('gamesList' in this.state) ? <GamesList goTo={this.goToAnotherTeam} gamesList={ this.state.gamesList } /> : null;
     const summaryComponent = ('summary' in this.state) ? <Summary summary={ this.state.summary } /> : null;
     return (
       <div>
@@ -103,9 +88,7 @@ class Team extends Component {
           <div data-active="games-list" className="games-list-tab tablink active">Games list</div>
           <div data-active="summary" className="summary-tab tablink">Summary</div>
         </div>
-        <div id="games-list" className="games-list tabcontent">
-          {this.state.gamesList}
-        </div>
+        {gamesListComponent}
         {summaryComponent}
       </div>
     );
