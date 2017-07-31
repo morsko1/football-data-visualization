@@ -155,7 +155,7 @@ a:active {
 }
 /*.ftr-table*/
 
-.ftr-table {
+/*.ftr-table {
   margin: 0 auto;
   border-collapse: collapse;
 }
@@ -165,5 +165,20 @@ a:active {
   border-collapse: collapse;
   border: 1px solid black;
   padding: 0.3em;
+}*/
+.line-diagram {
+  display: flex;
+}
+.line-diagram .wins {
+  background-color: green;
+  text-align: center;
+}
+.line-diagram .draws {
+  background-color: grey;
+  text-align: center;
+}
+.line-diagram .losses {
+  background-color: red;
+  text-align: center;
 }
 /* ========================== TEAM COMPONENT END =======================*/
