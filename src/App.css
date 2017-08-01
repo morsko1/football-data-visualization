@@ -153,32 +153,31 @@ a:active {
 .summary-content {
   padding: 0.3em;
 }
-/*.ftr-table*/
-
-/*.ftr-table {
-  margin: 0 auto;
-  border-collapse: collapse;
-}
-.ftr-table table,
-.ftr-table td,
-.ftr-table th {
-  border-collapse: collapse;
-  border: 1px solid black;
-  padding: 0.3em;
-}*/
 .line-diagram {
   display: flex;
 }
 .line-diagram .wins {
   background-color: green;
   text-align: center;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
 }
 .line-diagram .draws {
   background-color: grey;
   text-align: center;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
 }
 .line-diagram .losses {
   background-color: red;
+  text-align: center;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+}
+.summary-content .title {
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+  /*text-indent: 2em;*/
   text-align: center;
 }
 /* ========================== TEAM COMPONENT END =======================*/

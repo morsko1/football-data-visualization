@@ -15,68 +15,55 @@ class Summary extends Component {
     const winsAwayWidth = (summary.winsAway / (summary.games/2)) * 100;
     const drawsAwayWidth = (summary.drawsAway / (summary.games/2)) * 100;
     const lossesAwayWidth = (summary.lossesAway / (summary.games/2)) * 100;
-//если значение равно 0, то не рендерить элемент
+
+    const goalsScoredWidth = (summary.goalsTotal / (summary.goalsTotal + summary.goalsTotalAllowed)) * 100;
+    const goalsAllowedWidth = (summary.goalsTotalAllowed / (summary.goalsTotal + summary.goalsTotalAllowed)) * 100;
+
+    const goalsScoredHomeWidth = (summary.goalsHome / (summary.goalsHome + summary.goalsHomeAllowed)) * 100;
+    const goalsAllowedHomeWidth = (summary.goalsHomeAllowed / (summary.goalsHome + summary.goalsHomeAllowed)) * 100;
+
+    const goalsScoredAwayWidth = (summary.goalsAway / (summary.goalsAway + summary.goalsAwayAllowed)) * 100;
+    const goalsAllowedAwayWidth = (summary.goalsAwayAllowed / (summary.goalsAway + summary.goalsAwayAllowed)) * 100;
 
     return (
       <div id="summary" className="summary tabcontent">
         <div className="summary-content">
-          <div>Games: {summary.games}</div>
-          {/*<div>Goals scored: {summary.goalsTotal}</div>
-          <div>Goals allowed: {summary.goalsTotalAllowed}</div>*/}
-          <div>Fulltime results:</div>
+          <div className="title">Games: {summary.games}</div>
+          <br/>
+          <div className="title">Fulltime results:</div>
           <div className="line-diagram">
-            <div className="wins" style={{width: winsWidth + '%'}}>{summary.wins}</div>
-            <div className="draws" style={{width: drawsWidth + '%'}}>{summary.draws}</div>
-            <div className="losses" style={{width: lossesWidth + '%'}}>{summary.losses}</div>
+            <div className="wins" style={{width: winsWidth + '%'}}>{summary.wins || ''}</div>
+            <div className="draws" style={{width: drawsWidth + '%'}}>{summary.draws || ''}</div>
+            <div className="losses" style={{width: lossesWidth + '%'}}>{summary.losses || ''}</div>
           </div>
-          <div>Fulltime results home:</div>
+          <div className="title">Fulltime results home:</div>
           <div className="line-diagram">
-            <div className="wins" style={{width: winsHomeWidth + '%'}}>{summary.winsHome}</div>
-            <div className="draws" style={{width: drawsHomeWidth + '%'}}>{summary.drawsHome}</div>
-            <div className="losses" style={{width: lossesHomeWidth + '%'}}>{summary.lossesHome}</div>
+            <div className="wins" style={{width: winsHomeWidth + '%'}}>{summary.winsHome || ''}</div>
+            <div className="draws" style={{width: drawsHomeWidth + '%'}}>{summary.drawsHome || ''}</div>
+            <div className="losses" style={{width: lossesHomeWidth + '%'}}>{summary.lossesHome || ''}</div>
           </div>
-          <div>Fulltime results away:</div>
+          <div className="title">Fulltime results away:</div>
           <div className="line-diagram">
-            <div className="wins" style={{width: winsAwayWidth + '%'}}>{summary.winsAway}</div>
-            <div className="draws" style={{width: drawsAwayWidth + '%'}}>{summary.drawsAway}</div>
-            <div className="losses" style={{width: lossesAwayWidth + '%'}}>{summary.lossesAway}</div>
+            <div className="wins" style={{width: winsAwayWidth + '%'}}>{summary.winsAway || ''}</div>
+            <div className="draws" style={{width: drawsAwayWidth + '%'}}>{summary.drawsAway || ''}</div>
+            <div className="losses" style={{width: lossesAwayWidth + '%'}}>{summary.lossesAway || ''}</div>
           </div>
-          {/*<table className="ftr-table">
-            <tbody>
-              <tr>
-                <td>Wins</td>
-                <td>Draws</td>
-                <td>Losses</td>
-              </tr>
-              <tr>
-                <td colSpan={3} className="centered">Total</td>
-              </tr>
-              <tr>
-                <td className="centered">{summary.wins}</td>
-                <td className="centered">{summary.draws}</td>
-                <td className="centered">{summary.losses}</td>
-              </tr>
-              <tr>
-                <td colSpan={3} className="centered">Home</td>
-              </tr>
-              <tr>
-                <td className="centered">{summary.winsHome}</td>
-                <td className="centered">{summary.drawsHome}</td>
-                <td className="centered">{summary.lossesHome}</td>
-              </tr>
-              <tr>
-                <td colSpan={3} className="centered">Away</td>
-              </tr>
-              <tr>
-                <td className="centered">{summary.winsAway}</td>
-                <td className="centered">{summary.drawsAway}</td>
-                <td className="centered">{summary.lossesAway}</td>
-              </tr>
-            </tbody>
-          </table>*/}
-          <div>Goals Total: {summary.goalsTotal + ' - ' + summary.goalsTotalAllowed}</div>
-          <div>Goals Home: {summary.goalsHome + ' - ' + summary.goalsHomeAllowed}</div>
-          <div>Goals Away: {summary.goalsAway + ' - ' + summary.goalsAwayAllowed}</div>
+          <br/>
+          <div className="title">Goals total:</div>
+          <div className="line-diagram">
+            <div className="wins" style={{width: goalsScoredWidth + '%'}}>{summary.goalsTotal || ''}</div>
+            <div className="losses" style={{width: goalsAllowedWidth + '%'}}>{summary.goalsTotalAllowed || ''}</div>
+          </div>
+          <div className="title">Goals home:</div>
+          <div className="line-diagram">
+            <div className="wins" style={{width: goalsScoredHomeWidth + '%'}}>{summary.goalsHome || ''}</div>
+            <div className="losses" style={{width: goalsAllowedHomeWidth + '%'}}>{summary.goalsHomeAllowed || ''}</div>
+          </div>
+          <div className="title">Goals away:</div>
+          <div className="line-diagram">
+            <div className="wins" style={{width: goalsScoredAwayWidth + '%'}}>{summary.goalsAway || ''}</div>
+            <div className="losses" style={{width: goalsAllowedAwayWidth + '%'}}>{summary.goalsAwayAllowed || ''}</div>
+          </div>
         </div>
       </div>
     );
