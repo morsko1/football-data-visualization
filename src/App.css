@@ -120,6 +120,7 @@ a:active {
 }
 .game-teams {
   display: flex;
+  margin-top: 0.5em;
 }
 .game-teams div {
   width: 50%;
@@ -127,6 +128,8 @@ a:active {
 }
 .game-goals {
   display: flex;
+  font-size: 1.3em;
+  margin-top: 0.5em;
 }
 .game-goals div {
   width: 50%;

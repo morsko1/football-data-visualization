@@ -78,7 +78,7 @@ class Team extends Component {
   }
 
   render() {
-    const gamesListComponent = ('gamesList' in this.state) ? <GamesList goTo={this.goToAnotherTeam} gamesList={ this.state.gamesList } /> : null;
+    const gamesListComponent = ('gamesList' in this.state) ? <GamesList goTo={this.goToAnotherTeam} gamesList={ this.state.gamesList } team={this.state.team}/> : null;
     const summaryComponent = ('summary' in this.state) ? <Summary summary={ this.state.summary } /> : null;
     return (
       <div>
