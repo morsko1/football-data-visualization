@@ -47,6 +47,8 @@ class GamesList extends Component {
                 <div className="game-home-team-goals">{item.fullTimeHomeTeamGoals}</div>
                 <div className="game-away-team-goals">{item.fullTimeAwayTeamGoals}</div>
               </div>
+              <Link className="link-to-game" to={`games/${item.id}`}>details...</Link>
+              <div className="clear"></div>
             </div>
     });
     return(

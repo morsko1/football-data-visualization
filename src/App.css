@@ -1,6 +1,11 @@
 body {
 
 }
+.clear {
+  content: "";
+  display: table;
+  clear: both;
+}
 a:link {
   text-decoration: underline;
   color: #000;
@@ -110,12 +115,13 @@ a:active {
   background-color: #eee;
   position: relative;
 }
+
 .game-num {
   position: absolute;
   top: 0.3em;
   left: 0.3em;
 }
-.game-single .game-date {
+.game-date {
   text-align: center;
 }
 .game-teams {
@@ -180,7 +186,36 @@ a:active {
 .summary-content .title {
   margin-top: 1em;
   margin-bottom: 0.5em;
-  /*text-indent: 2em;*/
   text-align: center;
 }
 /* ========================== TEAM COMPONENT END =======================*/
+
+/* ========================== GAME COMPONENT =======================*/
+
+.game {
+  max-width: 500px;
+  margin: 0 auto;
+  background-color: #eee;
+  padding: 0.3em;
+}
+.game-goals-half {
+  display: flex;
+}
+.game-goals-half div {
+  width: 50%;
+  text-align: center;
+}
+.game .title {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  text-align: center;
+  position: relative;
+}
+.beatween-flex {
+  position: absolute;
+  /*margin: 0 auto;*/
+  /*width:0%;*/
+  color: blue;
+}
+
+/* ========================== GAME COMPONENT END =======================*/
