@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import * as Constants from '../../constants/';
 import GamesList from './components/GamesList.js';
-import Summary from './components/Summary.js';
+import SummaryTeam from './components/SummaryTeam.js';
 
 class Team extends Component {
   constructor (props) {
@@ -79,14 +79,16 @@ class Team extends Component {
 
   render() {
     const gamesListComponent = ('gamesList' in this.state) ? <GamesList goTo={this.goToAnotherTeam} gamesList={ this.state.gamesList } team={this.state.team}/> : null;
-    const summaryComponent = ('summary' in this.state) ? <Summary summary={ this.state.summary } /> : null;
+    const summaryComponent = ('summary' in this.state) ? <SummaryTeam summary={ this.state.summary } /> : null;
     return (
       <div>
-        <Link to="/">Home</Link>
+        <div className="centered">
+          <Link to="/">Home</Link>
+        </div>
         <h3 className="team-name">{this.state.team}</h3>
         <div className="control-statistics" onClick={this.handleClickOnTabs}>
           <div data-active="games-list" className="games-list-tab tablink active">Games list</div>
-          <div data-active="summary" className="summary-tab tablink">Summary</div>
+          <div data-active="summary-team" className="summary-tab tablink">Summary</div>
         </div>
         {gamesListComponent}
         {summaryComponent}

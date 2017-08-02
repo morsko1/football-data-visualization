@@ -26,8 +26,8 @@ class Summary extends Component {
     const goalsAllowedAwayWidth = (summary.goalsAwayAllowed / (summary.goalsAway + summary.goalsAwayAllowed)) * 100;
 
     return (
-      <div id="summary" className="summary tabcontent">
-        <div className="summary-content">
+      <div id="summary-team" className="summary-team tabcontent">
+        <div className="summary-team-content">
           <div className="title">Games: {summary.games}</div>
           <br/>
           <div className="title">Fulltime results:</div>

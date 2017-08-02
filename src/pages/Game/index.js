@@ -59,53 +59,58 @@ class Team extends Component {
     const homeTeamRedCards = ('game' in this.state) ? this.state.game.homeTeamRedCards : null;
     const awayTeamRedCards = ('game' in this.state) ? this.state.game.awayTeamRedCards : null;
     return (
-      <div className="game">
-        <div className="game-date">{date}</div>
-        <div className="game-teams">
-          <div className="game-home-team">
-            <Link className="link-to-team" to={`../${homeTeam}`}>{homeTeam}</Link>
+      <div>
+        <div className="centered">
+          <Link to="/">Home</Link>
+        </div>
+        <div className="game">
+          <div className="game-date">{date}</div>
+          <div className="game-teams">
+            <div className="game-home-team">
+              <Link className="link-to-team" to={`../${homeTeam}`}>{homeTeam}</Link>
+            </div>
+            <div className="game-away-team">
+              <Link className="link-to-team" to={`../${awayTeam}`}>{awayTeam}</Link>
+            </div>
           </div>
-          <div className="game-away-team">
-            <Link className="link-to-team" to={`../${awayTeam}`}>{awayTeam}</Link>
+          <div className="game-goals">
+            <div className="game-home-team-goals">{fullTimeHomeTeamGoals}</div>
+            <div className="game-away-team-goals">{fullTimeAwayTeamGoals}</div>
           </div>
-        </div>
-        <div className="game-goals">
-          <div className="game-home-team-goals">{fullTimeHomeTeamGoals}</div>
-          <div className="game-away-team-goals">{fullTimeAwayTeamGoals}</div>
-        </div>
-        <div className="game-goals-half">
-          <div className="game-home-team-goals">{'(' + halfTimeHomeTeamGoals + ')'}</div>
-          <div className="game-away-team-goals">{'(' + halfTimeAwayTeamGoals + ')'}</div>
-        </div>
-        <div className="stat-line">
-          <div>{homeTeamShots}</div>
-          <div>shots</div>
-          <div>{awayTeamShots}</div>
-        </div>
-        <div className="stat-line">
-          <div>{homeTeamShotsOnTarget}</div>
-          <div>shots on target</div>
-          <div>{awayTeamShotsOnTarget}</div>
-        </div>
-        <div className="stat-line">
-          <div>{homeTeamCorners}</div>
-          <div>corners</div>
-          <div>{awayTeamCorners}</div>
-        </div>
-        <div className="stat-line">
-          <div>{homeTeamFouls}</div>
-          <div>fouls</div>
-          <div>{awayTeamFouls}</div>
-        </div>
-        <div className="stat-line">
-          <div>{homeTeamYellowCards}</div>
-          <div>yellow cards</div>
-          <div>{awayTeamYellowCards}</div>
-        </div>
-        <div className="stat-line">
-          <div>{homeTeamRedCards}</div>
-          <div>red cards</div>
-          <div>{awayTeamRedCards}</div>
+          <div className="game-goals-half">
+            <div className="game-home-team-goals">{'(' + halfTimeHomeTeamGoals + ')'}</div>
+            <div className="game-away-team-goals">{'(' + halfTimeAwayTeamGoals + ')'}</div>
+          </div>
+          <div className="stat-line">
+            <div>{homeTeamShots}</div>
+            <div>shots</div>
+            <div>{awayTeamShots}</div>
+          </div>
+          <div className="stat-line">
+            <div>{homeTeamShotsOnTarget}</div>
+            <div>shots on target</div>
+            <div>{awayTeamShotsOnTarget}</div>
+          </div>
+          <div className="stat-line">
+            <div>{homeTeamCorners}</div>
+            <div>corners</div>
+            <div>{awayTeamCorners}</div>
+          </div>
+          <div className="stat-line">
+            <div>{homeTeamFouls}</div>
+            <div>fouls</div>
+            <div>{awayTeamFouls}</div>
+          </div>
+          <div className="stat-line">
+            <div>{homeTeamYellowCards}</div>
+            <div>yellow cards</div>
+            <div>{awayTeamYellowCards}</div>
+          </div>
+          <div className="stat-line">
+            <div>{homeTeamRedCards}</div>
+            <div>red cards</div>
+            <div>{awayTeamRedCards}</div>
+          </div>
         </div>
       </div>
     );

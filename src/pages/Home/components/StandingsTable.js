@@ -5,7 +5,7 @@ class StandingsTable extends Component {
   render() {
     return (
       <table className="standings-table">
-        <caption>{this.props.tableCaption}</caption>
+        <caption>Click to certain team for details</caption>
         <tbody>
           <tr>
             <th>Rank</th>

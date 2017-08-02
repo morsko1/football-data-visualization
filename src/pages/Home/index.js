@@ -169,6 +169,10 @@ class Home extends Component {
           handleClickOnSeasons={this.handleClickOnSeasons}
           seasonView={this.state.season}
           championshipsList={this.state.championshipsList} />
+        <div className="centered">
+          <Link className="link-to-summary" to={`${this.state.season}/${this.state.country}/${this.state.league}`}>Summary of championship</Link>
+        </div>
+        <br/>
         <StandingsTable
           tableData={this.state.tableData} />
       </div>

@@ -59,6 +59,10 @@ a:active {
   padding: 0.5em;
   cursor: pointer;
 }
+.link-to-summary {
+  display: inline-block;
+  margin: 0 auto;
+}
 .link-to-team {
 
 }
@@ -154,12 +158,12 @@ a:active {
   to {opacity: 1;}
 }
 
-.summary {
+.summary-team {
   max-width: 500px;
   margin: 0 auto;
   background-color: #eee;
 }
-.summary-content {
+.summary-team-content {
   padding: 0.3em;
 }
 .line-diagram {
@@ -183,7 +187,7 @@ a:active {
   padding-top: 0.2em;
   padding-bottom: 0.2em;
 }
-.summary-content .title {
+.summary-teams-content .title {
   margin-top: 1em;
   margin-bottom: 0.5em;
   text-align: center;
@@ -221,3 +225,14 @@ a:active {
 }
 
 /* ========================== GAME COMPONENT END =======================*/
+
+/* ========================== SUMMARY COMPONENT =======================*/
+.summary {
+  max-width: 500px;
+  margin: 0 auto;
+  background-color: #eee;
+  padding: 0.3em;
+}
+
+/* ========================== SUMMARY COMPONENT END =======================*/
+
