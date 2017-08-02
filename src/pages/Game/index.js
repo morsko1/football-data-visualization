@@ -77,6 +77,36 @@ class Team extends Component {
           <div className="game-home-team-goals">{'(' + halfTimeHomeTeamGoals + ')'}</div>
           <div className="game-away-team-goals">{'(' + halfTimeAwayTeamGoals + ')'}</div>
         </div>
+        <div className="stat-line">
+          <div>{homeTeamShots}</div>
+          <div>shots</div>
+          <div>{awayTeamShots}</div>
+        </div>
+        <div className="stat-line">
+          <div>{homeTeamShotsOnTarget}</div>
+          <div>shots on target</div>
+          <div>{awayTeamShotsOnTarget}</div>
+        </div>
+        <div className="stat-line">
+          <div>{homeTeamCorners}</div>
+          <div>corners</div>
+          <div>{awayTeamCorners}</div>
+        </div>
+        <div className="stat-line">
+          <div>{homeTeamFouls}</div>
+          <div>fouls</div>
+          <div>{awayTeamFouls}</div>
+        </div>
+        <div className="stat-line">
+          <div>{homeTeamYellowCards}</div>
+          <div>yellow cards</div>
+          <div>{awayTeamYellowCards}</div>
+        </div>
+        <div className="stat-line">
+          <div>{homeTeamRedCards}</div>
+          <div>red cards</div>
+          <div>{awayTeamRedCards}</div>
+        </div>
       </div>
     );
   }

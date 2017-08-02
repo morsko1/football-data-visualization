@@ -211,11 +211,13 @@ a:active {
   text-align: center;
   position: relative;
 }
-.beatween-flex {
-  position: absolute;
-  /*margin: 0 auto;*/
-  /*width:0%;*/
-  color: blue;
+.stat-line {
+  display: flex;
+  margin-top: 1em;
+}
+.stat-line div {
+  width: 33%;
+  text-align: center;
 }
 
 /* ========================== GAME COMPONENT END =======================*/
