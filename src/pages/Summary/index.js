@@ -14,7 +14,6 @@ class Team extends Component {
     const season = params.season;
     const country = params.country;
     const league = params.league;
-    const id = params.id;
     this.setState({
       season: season,
       country: country,
@@ -55,7 +54,6 @@ class Team extends Component {
       summary.numOfGames = res.data.games.length;
       const seasonView = res.data.season;
       const leagueView = res.data.name;
-      const countryView = res.data.country;
       this.setState({
         summary: summary,
         seasonView: seasonView,
@@ -71,40 +69,26 @@ class Team extends Component {
   }
 
   render() {
-    const seasonView = ('seasonView' in this.state) ? this.state.seasonView : null;
-    const leagueView = ('leagueView' in this.state) ? this.state.leagueView : null;
-    const numOfGames = ('summary' in this.state) ? this.state.summary.numOfGames : null;
-    const fullTimeHomeTeamGoals = ('summary' in this.state) ? this.state.summary.fullTimeHomeTeamGoals : null;
-    const fullTimeAwayTeamGoals = ('summary' in this.state) ? this.state.summary.fullTimeAwayTeamGoals : null;
-    const halfTimeHomeTeamGoals = ('summary' in this.state) ? this.state.summary.halfTimeHomeTeamGoals : null;
-    const halfTimeAwayTeamGoals = ('summary' in this.state) ? this.state.summary.halfTimeAwayTeamGoals : null;
-    const homeTeamShots = ('summary' in this.state) ? this.state.summary.homeTeamShots : null;
-    const awayTeamShots = ('summary' in this.state) ? this.state.summary.awayTeamShots : null;
-    const homeTeamShotsOnTarget = ('summary' in this.state) ? this.state.summary.homeTeamShotsOnTarget : null;
-    const awayTeamShotsOnTarget = ('summary' in this.state) ? this.state.summary.awayTeamShotsOnTarget : null;
-    const homeTeamCorners = ('summary' in this.state) ? this.state.summary.homeTeamCorners : null;
-    const awayTeamCorners = ('summary' in this.state) ? this.state.summary.awayTeamCorners : null;
-    const homeTeamFouls = ('summary' in this.state) ? this.state.summary.homeTeamFouls : null;
-    const awayTeamFouls = ('summary' in this.state) ? this.state.summary.awayTeamFouls : null;
-    const homeTeamYellowCards = ('summary' in this.state) ? this.state.summary.homeTeamYellowCards : null;
-    const awayTeamYellowCards = ('summary' in this.state) ? this.state.summary.awayTeamYellowCards : null;
-    const homeTeamRedCards = ('summary' in this.state) ? this.state.summary.homeTeamRedCards : null;
-    const awayTeamRedCards = ('summary' in this.state) ? this.state.summary.awayTeamRedCards : null;
-    return (
-      <div>
-        <div className="centered">
-          <Link to="/">Home</Link>
+    const summary = this.state.summary;
+    if ('summary' in this.state && 'seasonView' in this.state && 'leagueView' in this.state) {
+      return (
+        <div>
+          <div className="centered">
+            <Link to="/">Home</Link>
+          </div>
+          <div className="centered">
+            <h3>Summary of Championship</h3>
+            <div>{this.state.seasonView}</div>
+            <div>{this.state.leagueView}</div>
+          </div>
+          <div className="summary">
+            Games: {summary.numOfGames}
+          </div>
         </div>
-        <div className="centered">
-          <h3>Summary of Championship</h3>
-          <div>{seasonView}</div>
-          <div>{leagueView}</div>
-        </div>
-        <div className="summary">
-          Games: {numOfGames}
-        </div>
-      </div>
-    );
+      );
+    } else {
+      return null;
+    }
   }
 }
 
