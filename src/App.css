@@ -226,13 +226,25 @@ a:active {
 
 /* ========================== GAME COMPONENT END =======================*/
 
-/* ========================== SUMMARY COMPONENT =======================*/
-.summary {
+/* ========================== SUMMARY STATISTICS COMPONENT =======================*/
+.summary-statistics {
+  max-width: 500px;
+  margin: 0 auto;
+  background-color: #eee;
+  padding: 0.3em;
+}
+#summary-statistics {
+  display: block;
+}
+
+/* ========================== SUMMARY STATISTICS COMPONENT END =======================*/
+
+/* ========================== COMPARING TEAMS COMPONENT =======================*/
+.comparing-teams {
   max-width: 500px;
   margin: 0 auto;
   background-color: #eee;
   padding: 0.3em;
 }
 
-/* ========================== SUMMARY COMPONENT END =======================*/
-
+/* ========================== COMPARING TEAMS COMPONENT END =======================*/

@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import * as Constants from '../../constants/';
+import SummaryStatistics from './components/SummaryStatistics.js';
+import ComparingTeams from './components/ComparingTeams.js';
 
 class Team extends Component {
   constructor (props) {
@@ -63,6 +65,19 @@ class Team extends Component {
     .catch((error) => console.log(error));
   }
 
+  handleClickOnTabs (event) {
+    const tabcontent = document.getElementsByClassName('tabcontent');
+    for (let i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].style.display = 'none';
+    }
+    const tablinks = document.getElementsByClassName('tablink');
+      for (let i = 0; i < tablinks.length; i++) {
+        tablinks[i].classList.remove('active');
+      }
+    document.getElementById(event.target.dataset.active).style.display = 'block';
+    event.target.classList.add('active');
+  }
+
   async componentDidMount() {
     await this.saveLinkPropsToState(this.props.match.params);
     this.ajaxCallGames (this.state.season, this.state.country, this.state.league);
@@ -70,25 +85,25 @@ class Team extends Component {
 
   render() {
     const summary = this.state.summary;
-    if ('summary' in this.state && 'seasonView' in this.state && 'leagueView' in this.state) {
-      return (
-        <div>
-          <div className="centered">
-            <Link to="/">Home</Link>
-          </div>
-          <div className="centered">
-            <h3>Summary of Championship</h3>
-            <div>{this.state.seasonView}</div>
-            <div>{this.state.leagueView}</div>
-          </div>
-          <div className="summary">
-            Games: {summary.numOfGames}
-          </div>
+    const seasonView = this.state.seasonView;
+    const leagueView = this.state.leagueView;
+    const SummaryStatisticsComponent = ('summary' in this.state && 'seasonView' in this.state && 'leagueView' in this.state) ?
+    <SummaryStatistics summary={summary} seasonView={seasonView} leagueView={leagueView}/> : null;
+    const ComparingTeamsComponent = ('summary' in this.state && 'seasonView' in this.state && 'leagueView' in this.state) ?
+    <ComparingTeams summary={summary} seasonView={seasonView} leagueView={leagueView}/> : null;
+    return (
+      <div>
+        <div className="centered">
+          <Link to="/">Home</Link>
         </div>
-      );
-    } else {
-      return null;
-    }
+        <div className="control-statistics" onClick={this.handleClickOnTabs}>
+          <div data-active="summary-statistics" className="summary-statistics-tab tablink active">Summary</div>
+          <div data-active="comparing-teams" className="comparing-teams-tab tablink">Comparing</div>
+        </div>
+          {SummaryStatisticsComponent}
+          {ComparingTeamsComponent}
+      </div>
+    );
   }
 }
 
