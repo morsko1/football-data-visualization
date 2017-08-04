@@ -89,7 +89,7 @@ class Team extends Component {
             <div data-active="games-list" className="games-list-tab tablink active">Games list</div>
             <div data-active="summary-team" className="summary-tab tablink">Summary</div>
           </div>
-          <GamesList goTo={this.goToAnotherTeam} gamesList={ this.state.gamesList } team={this.state.team}/>
+          <GamesList goTo={this.goToAnotherTeam} gamesList={ this.state.gamesList } team={this.state.team} season={this.state.season} country={this.state.country} league={this.state.league}/>
           <SummaryTeam summary={ this.state.summary }/>
         </div>
       );

@@ -30,19 +30,19 @@ class Summary extends Component {
         <div className="summary-team-content">
           <div className="title">Games: {summary.games}</div>
           <br/>
-          <div className="title">Fulltime results:</div>
+          <div className="title">Full-time results:</div>
           <div className="line-diagram">
             <div className="wins" style={{width: winsWidth + '%'}}>{summary.wins || ''}</div>
             <div className="draws" style={{width: drawsWidth + '%'}}>{summary.draws || ''}</div>
             <div className="losses" style={{width: lossesWidth + '%'}}>{summary.losses || ''}</div>
           </div>
-          <div className="title">Fulltime results home:</div>
+          <div className="title">Full-time results home:</div>
           <div className="line-diagram">
             <div className="wins" style={{width: winsHomeWidth + '%'}}>{summary.winsHome || ''}</div>
             <div className="draws" style={{width: drawsHomeWidth + '%'}}>{summary.drawsHome || ''}</div>
             <div className="losses" style={{width: lossesHomeWidth + '%'}}>{summary.lossesHome || ''}</div>
           </div>
-          <div className="title">Fulltime results away:</div>
+          <div className="title">Full-time results away:</div>
           <div className="line-diagram">
             <div className="wins" style={{width: winsAwayWidth + '%'}}>{summary.winsAway || ''}</div>
             <div className="draws" style={{width: drawsAwayWidth + '%'}}>{summary.drawsAway || ''}</div>

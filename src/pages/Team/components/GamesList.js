@@ -37,6 +37,7 @@ class GamesList extends Component {
               <div className="game-date">{item.date}</div>
               <div className="game-teams">
                 <div className="game-home-team">
+                {/*<Link className="link-to-team" to={`${this.props.season}/${this.props.country}/${this.props.league}/${item.homeTeam}`} onClick={this.props.goTo.bind(this, item.homeTeam)} replace>{item.homeTeam}</Link>*/}
                   <Link className="link-to-team" to={`${item.homeTeam}`} onClick={this.props.goTo.bind(this, item.homeTeam)}>{item.homeTeam}</Link>
                 </div>
                 <div className="game-away-team">

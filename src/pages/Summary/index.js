@@ -8,8 +8,7 @@ import ComparingTeams from './components/ComparingTeams.js';
 class Team extends Component {
   constructor (props) {
     super(props);
-    this.state = {
-    };
+    this.state = {};
   }
 
   saveLinkPropsToState (params) {
@@ -116,13 +115,13 @@ class Team extends Component {
             <Link to="/">Home</Link>
           </div>
           <div className="centered">
-            <h3>Summary of Championship</h3>
+            <h4>Summary of Championship</h4>
             <div>{seasonView}</div>
             <div>{leagueView}</div>
           </div>
           <div className="control-statistics" onClick={this.handleClickOnTabs}>
             <div data-active="summary-statistics" className="summary-statistics-tab tablink active">Summary</div>
-            <div data-active="comparing-teams" className="comparing-teams-tab tablink">Comparing</div>
+            <div data-active="comparing-teams" className="comparing-teams-tab tablink">Comparing Teams</div>
           </div>
           <SummaryStatistics summary={summary}/>
           <ComparingTeams summary={summary}/>

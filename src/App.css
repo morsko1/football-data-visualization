@@ -236,6 +236,40 @@ a:active {
 #summary-statistics {
   display: block;
 }
+.summary-statistics table {
+  margin: 0 auto;
+}
+.summary-statistics td {
+  padding: 0.2em;
+  padding-left: 0.8em;
+  padding-right: 0.8em;
+}
+.summary-statistics td:nth-child(odd) {
+  text-align: right;
+}
+.home-vs-away {
+  text-align: center;
+  margin-top: 1em;
+  font-weight: bold;
+}
+
+.line-diagram-splitted {
+  display: flex;
+  justify-content: space-between;
+  background-color: #fff;
+}
+.line-diagram-splitted .goals-scored {
+  background-color: green;
+  text-align: center;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+}
+.line-diagram-splitted .goals-allowed {
+  background-color: red;
+  text-align: center;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+}
 
 /* ========================== SUMMARY STATISTICS COMPONENT END =======================*/
 
