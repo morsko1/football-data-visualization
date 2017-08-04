@@ -46,6 +46,7 @@ class Team extends Component {
           <div className="centered">
             <Link to="/">Home</Link>
           </div>
+          <br/>
           <div className="game">
             <div className="game-date">{game.date}</div>
             <div className="game-teams">

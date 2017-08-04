@@ -7,7 +7,7 @@ class ComparingTeams extends Component {
   render() {
     return (
       <div id="comparing-teams" className="comparing-teams tabcontent">
-        ComparingTeams
+        <div className="comparing-teams-content">Comparing Teams</div>
       </div>
     );
   }

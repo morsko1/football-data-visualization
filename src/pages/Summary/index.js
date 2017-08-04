@@ -88,13 +88,18 @@ class Team extends Component {
     const seasonView = this.state.seasonView;
     const leagueView = this.state.leagueView;
     const SummaryStatisticsComponent = ('summary' in this.state && 'seasonView' in this.state && 'leagueView' in this.state) ?
-    <SummaryStatistics summary={summary} seasonView={seasonView} leagueView={leagueView}/> : null;
+    <SummaryStatistics summary={summary}/> : null;
     const ComparingTeamsComponent = ('summary' in this.state && 'seasonView' in this.state && 'leagueView' in this.state) ?
-    <ComparingTeams summary={summary} seasonView={seasonView} leagueView={leagueView}/> : null;
+    <ComparingTeams summary={summary}/> : null;
     return (
       <div>
         <div className="centered">
           <Link to="/">Home</Link>
+        </div>
+        <div className="centered">
+          <h3>Summary of Championship</h3>
+          <div>{seasonView}</div>
+          <div>{leagueView}</div>
         </div>
         <div className="control-statistics" onClick={this.handleClickOnTabs}>
           <div data-active="summary-statistics" className="summary-statistics-tab tablink active">Summary</div>
