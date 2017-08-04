@@ -26,8 +26,14 @@ class Team extends Component {
   ajaxCallGames (season, country, league) {
     let summary ={
       numOfGames: 0,
-      fullTimeResult: '',
-      halfTimeResult: '',
+      // fullTimeResult: '',
+      fullTimeHomeTeamWins: 0,
+      fullTimeDraws: 0,
+      fullTimeAwayTeamWins: 0,
+      // halfTimeResult: '',
+      halfTimeHomeTeamWins: 0,
+      halfTimeDraws: 0,
+      halfTimeAwayTeamWins: 0,
       fullTimeHomeTeamGoals: 0,
       fullTimeAwayTeamGoals: 0,
       halfTimeHomeTeamGoals: 0,
@@ -50,7 +56,23 @@ class Team extends Component {
     .then ((res) => {
       res.data.games.forEach((item, i) => {
         for (var prop in summary) {
-          summary[prop] += item[prop];
+          //get wins/draws/losses statistics for home/away team
+          if (prop === 'fullTimeHomeTeamWins' ||
+              prop === 'fullTimeDraws'        ||
+              prop === 'fullTimeAwayTeamWins' ||
+              prop === 'halfTimeHomeTeamWins' ||
+              prop === 'halfTimeDraws'        ||
+              prop === 'halfTimeAwayTeamWins') {
+                if (prop === 'fullTimeHomeTeamWins' && item.fullTimeResult === 'H') summary.fullTimeHomeTeamWins += 1;
+                if (prop === 'fullTimeDraws'        && item.fullTimeResult === 'D')        summary.fullTimeDraws += 1;
+                if (prop === 'fullTimeAwayTeamWins' && item.fullTimeResult === 'A') summary.fullTimeAwayTeamWins += 1;
+
+                if (prop === 'halfTimeHomeTeamWins' && item.halfTimeResult === 'H') summary.halfTimeHomeTeamWins += 1;
+                if (prop === 'halfTimeDraws'        && item.halfTimeResult === 'D')        summary.halfTimeDraws += 1;
+                if (prop === 'halfTimeAwayTeamWins' && item.halfTimeResult === 'A') summary.halfTimeAwayTeamWins += 1;
+          } else {
+            summary[prop] += item[prop];
+          }
         }
       })
       summary.numOfGames = res.data.games.length;
@@ -87,28 +109,28 @@ class Team extends Component {
     const summary = this.state.summary;
     const seasonView = this.state.seasonView;
     const leagueView = this.state.leagueView;
-    const SummaryStatisticsComponent = ('summary' in this.state && 'seasonView' in this.state && 'leagueView' in this.state) ?
-    <SummaryStatistics summary={summary}/> : null;
-    const ComparingTeamsComponent = ('summary' in this.state && 'seasonView' in this.state && 'leagueView' in this.state) ?
-    <ComparingTeams summary={summary}/> : null;
-    return (
-      <div>
-        <div className="centered">
-          <Link to="/">Home</Link>
+    if  ('summary' in this.state && 'seasonView' in this.state && 'leagueView' in this.state) {
+      return (
+        <div>
+          <div className="centered">
+            <Link to="/">Home</Link>
+          </div>
+          <div className="centered">
+            <h3>Summary of Championship</h3>
+            <div>{seasonView}</div>
+            <div>{leagueView}</div>
+          </div>
+          <div className="control-statistics" onClick={this.handleClickOnTabs}>
+            <div data-active="summary-statistics" className="summary-statistics-tab tablink active">Summary</div>
+            <div data-active="comparing-teams" className="comparing-teams-tab tablink">Comparing</div>
+          </div>
+          <SummaryStatistics summary={summary}/>
+          <ComparingTeams summary={summary}/>
         </div>
-        <div className="centered">
-          <h3>Summary of Championship</h3>
-          <div>{seasonView}</div>
-          <div>{leagueView}</div>
-        </div>
-        <div className="control-statistics" onClick={this.handleClickOnTabs}>
-          <div data-active="summary-statistics" className="summary-statistics-tab tablink active">Summary</div>
-          <div data-active="comparing-teams" className="comparing-teams-tab tablink">Comparing</div>
-        </div>
-          {SummaryStatisticsComponent}
-          {ComparingTeamsComponent}
-      </div>
-    );
+      );
+    } else {
+      return null;
+    }
   }
 }
 

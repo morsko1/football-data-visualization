@@ -71,29 +71,31 @@ class Team extends Component {
     event.target.classList.add('active');
   }
 
-  async componentWillMount() {
+  async componentDidMount() {
     await this.saveLinkPropsToState(this.props.match.params);
     this.ajaxCallGames (this.state.season, this.state.country, this.state.league, this.state.team);
     this.ajaxCallSummary (this.state.season, this.state.country, this.state.league, this.state.team);
   }
 
   render() {
-    const gamesListComponent = ('gamesList' in this.state) ? <GamesList goTo={this.goToAnotherTeam} gamesList={ this.state.gamesList } team={this.state.team}/> : null;
-    const summaryComponent = ('summary' in this.state) ? <SummaryTeam summary={ this.state.summary } /> : null;
-    return (
-      <div>
-        <div className="centered">
-          <Link to="/">Home</Link>
+    if ('gamesList' in this.state && 'team' in this.state && 'summary' in this.state) {
+      return (
+        <div>
+          <div className="centered">
+            <Link to="/">Home</Link>
+          </div>
+          <h3 className="team-name">{this.state.team}</h3>
+          <div className="control-statistics" onClick={this.handleClickOnTabs}>
+            <div data-active="games-list" className="games-list-tab tablink active">Games list</div>
+            <div data-active="summary-team" className="summary-tab tablink">Summary</div>
+          </div>
+          <GamesList goTo={this.goToAnotherTeam} gamesList={ this.state.gamesList } team={this.state.team}/>
+          <SummaryTeam summary={ this.state.summary }/>
         </div>
-        <h3 className="team-name">{this.state.team}</h3>
-        <div className="control-statistics" onClick={this.handleClickOnTabs}>
-          <div data-active="games-list" className="games-list-tab tablink active">Games list</div>
-          <div data-active="summary-team" className="summary-tab tablink">Summary</div>
-        </div>
-        {gamesListComponent}
-        {summaryComponent}
-      </div>
-    );
+      );
+    } else {
+      return null;
+    }
   }
 }
 
