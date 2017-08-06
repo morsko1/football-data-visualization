@@ -56,8 +56,8 @@ class SummaryStatistics extends Component {
     const homeTeamShotsOnTargetWidth = (summary.homeTeamShotsOnTarget / shotsTotal) * 100;
     const awayTeamShotsOnTargetWidth = (summary.awayTeamShotsOnTarget / shotsTotal) * 100;
 
-    const fullTimeHomeTeamGoalsSplittedWidth = (summary.fullTimeHomeTeamGoals / shotsTotal) * 100;
-    const fullTimeAwayTeamGoalsSplittedWidth = (summary.fullTimeAwayTeamGoals / shotsTotal) * 100;
+    // const fullTimeHomeTeamGoalsSplittedWidth = (summary.fullTimeHomeTeamGoals / shotsTotal) * 100;
+    // const fullTimeAwayTeamGoalsSplittedWidth = (summary.fullTimeAwayTeamGoals / shotsTotal) * 100;
     return (
       <div id="summary-statistics" className="tabcontent summary-statistics">
         <div className="summary-statistics-content">
@@ -137,12 +137,12 @@ class SummaryStatistics extends Component {
             <div className="goals-allowed" style={{width: awayTeamShotsOnTargetWidth + '%'}}>{summary.awayTeamShotsOnTarget || ''}</div>
           </div>
           <br/>
-          <div className="title">Goals:</div>
+          {/*<div className="title">Goals:</div>
           <div className="line-diagram-splitted">
             <div className="goals-scored" style={{width: fullTimeHomeTeamGoalsSplittedWidth + '%'}}>{summary.fullTimeHomeTeamGoals || ''}</div>
             <div className="goals-allowed" style={{width: fullTimeAwayTeamGoalsSplittedWidth + '%'}}>{summary.fullTimeAwayTeamGoals || ''}</div>
           </div>
-          <br/>
+          <br/>*/}
         </div>
       </div>
     );
