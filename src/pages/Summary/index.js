@@ -8,7 +8,10 @@ import ComparingTeams from './components/ComparingTeams.js';
 class Team extends Component {
   constructor (props) {
     super(props);
-    this.state = {};
+    this.state = {
+      valueSelect: 'pointsTotal'
+    };
+    this.sortTeams = this.sortTeams.bind(this);
   }
 
   saveLinkPropsToState (params) {
@@ -86,6 +89,27 @@ class Team extends Component {
     .catch((error) => console.log(error));
   }
 
+  ajaxCallComparingTeams (season, country, league) {
+    const URL = `${Constants.BASE_URL}${season}/${country}/${league}/standings.json`;
+    axios.get(URL)
+    .then ((res) => {
+      const teams = res.data.standings.map((item) => {
+        return item;
+      });
+      this.setState({teams: teams});
+    })
+    .catch((error) => console.log(error));
+  }
+
+  async sortTeams (event) {
+    await this.setState({valueSelect: event.target.value});
+    var teams = this.state.teams;
+    teams.sort((a, b) => {
+      return b[this.state.valueSelect] - a[this.state.valueSelect];
+    })
+    this.setState({teams: teams})
+  }
+
   handleClickOnTabs (event) {
     const tabcontent = document.getElementsByClassName('tabcontent');
     for (let i = 0; i < tabcontent.length; i++) {
@@ -102,13 +126,14 @@ class Team extends Component {
   async componentDidMount() {
     await this.saveLinkPropsToState(this.props.match.params);
     this.ajaxCallGames (this.state.season, this.state.country, this.state.league);
+    this.ajaxCallComparingTeams (this.state.season, this.state.country, this.state.league);
   }
 
   render() {
     const summary = this.state.summary;
     const seasonView = this.state.seasonView;
     const leagueView = this.state.leagueView;
-    if  ('summary' in this.state && 'seasonView' in this.state && 'leagueView' in this.state) {
+    if  ('summary' in this.state && 'seasonView' in this.state && 'leagueView' in this.state && 'teams' in this.state) {
       return (
         <div>
           <div className="centered">
@@ -124,7 +149,7 @@ class Team extends Component {
             <div data-active="comparing-teams" className="comparing-teams-tab tablink">Comparing Teams</div>
           </div>
           <SummaryStatistics summary={summary}/>
-          <ComparingTeams summary={summary}/>
+          <ComparingTeams summary={summary} teams={this.state.teams} sortTeams={this.sortTeams} valueSelect={this.state.valueSelect}/>
         </div>
       );
     } else {
