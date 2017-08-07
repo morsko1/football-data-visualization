@@ -26,7 +26,7 @@ class Team extends Component {
     });
   }
 
-  ajaxCallGames (season, country, league) {
+  ajaxCallSummary (season, country, league) {
     let summary ={
       numOfGames: 0,
       fullTimeHomeTeamWins: 0,
@@ -88,7 +88,7 @@ class Team extends Component {
     .catch((error) => console.log(error));
   }
 
-  async ajaxCallComparingTeams (season, country, league) {
+  async ajaxCallStandingsFull (season, country, league) {
     let teams1;
     const URL = `${Constants.BASE_URL}${season}/${country}/${league}/standings.json`;
     await axios.get(URL)
@@ -181,8 +181,8 @@ class Team extends Component {
 
   async componentDidMount() {
     await this.saveLinkPropsToState(this.props.match.params);
-    this.ajaxCallGames (this.state.season, this.state.country, this.state.league);
-    this.ajaxCallComparingTeams (this.state.season, this.state.country, this.state.league);
+    this.ajaxCallSummary (this.state.season, this.state.country, this.state.league);
+    this.ajaxCallStandingsFull (this.state.season, this.state.country, this.state.league);
   }
 
   render() {
