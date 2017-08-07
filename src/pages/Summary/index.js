@@ -28,11 +28,9 @@ class Team extends Component {
   ajaxCallGames (season, country, league) {
     let summary ={
       numOfGames: 0,
-      // fullTimeResult: '',
       fullTimeHomeTeamWins: 0,
       fullTimeDraws: 0,
       fullTimeAwayTeamWins: 0,
-      // halfTimeResult: '',
       halfTimeHomeTeamWins: 0,
       halfTimeDraws: 0,
       halfTimeAwayTeamWins: 0,
@@ -89,16 +87,86 @@ class Team extends Component {
     .catch((error) => console.log(error));
   }
 
-  ajaxCallComparingTeams (season, country, league) {
+  async ajaxCallComparingTeams (season, country, league) {
+    let teams1;
     const URL = `${Constants.BASE_URL}${season}/${country}/${league}/standings.json`;
-    axios.get(URL)
+    await axios.get(URL)
     .then ((res) => {
-      const teams = res.data.standings.map((item) => {
+      teams1 = res.data.standings.map((item) => {
         return item;
       });
-      this.setState({teams: teams});
     })
     .catch((error) => console.log(error));
+
+    const teams2 = [];
+    const URL2 = `${Constants.BASE_URL}${season}/${country}/${league}/games-full.json`;
+    await axios.get(URL2)
+    .then ((res) => {
+      teams1.forEach((team) => {
+        let obj = {
+          name: team.name,
+          halfTimeGoals: 0,
+          halfTimeGoalsAllowed: 0,
+          shots: 0,
+          shotsAllowed: 0,
+          shotsOnTarget: 0,
+          shotsOnTargetAllowed: 0,
+          corners: 0,
+          cornersAllowed: 0,
+          fouls: 0,
+          foulsAllowed: 0,
+          yellowCards: 0,
+          yellowCardsAllowed: 0,
+          redCards: 0,
+          redCardsAllowed: 0
+        };
+        res.data.games.forEach((game) => {
+          if(game.homeTeam !== team.name && game.awayTeam !== team.name) {
+            return;
+          }
+          if (team.name === game.homeTeam) {
+            obj.halfTimeGoals        += game.halfTimeHomeTeamGoals;
+            obj.halfTimeGoalsAllowed += game.halfTimeAwayTeamGoals;
+            obj.shots                += game.homeTeamShots;
+            obj.shotsAllowed         += game.awayTeamShots;
+            obj.shotsOnTarget        += game.homeTeamShotsOnTarget;
+            obj.shotsOnTargetAllowed += game.awayTeamShotsOnTarget;
+            obj.corners              += game.homeTeamCorners;
+            obj.cornersAllowed       += game.awayTeamCorners;
+            obj.fouls                += game.homeTeamFouls;
+            obj.foulsAllowed         += game.awayTeamFouls;
+            obj.yellowCards          += game.homeTeamYellowCards;
+            obj.yellowCardsAllowed   += game.awayTeamYellowCards;
+            obj.redCards             += game.homeTeamRedCards;
+            obj.redCardsAllowed      += game.awayTeamRedCards;
+          } else if (team.name === game.awayTeam) {
+            obj.halfTimeGoals        += game.halfTimeAwayTeamGoals;
+            obj.halfTimeGoalsAllowed += game.halfTimeHomeTeamGoals;
+            obj.shots                += game.awayTeamShots;
+            obj.shotsAllowed         += game.homeTeamShots;
+            obj.shotsOnTarget        += game.awayTeamShotsOnTarget;
+            obj.shotsOnTargetAllowed += game.homeTeamShotsOnTarget;
+            obj.corners              += game.awayTeamCorners;
+            obj.cornersAllowed       += game.homeTeamCorners;
+            obj.fouls                += game.awayTeamFouls;
+            obj.foulsAllowed         += game.homeTeamFouls;
+            obj.yellowCards          += game.awayTeamYellowCards;
+            obj.yellowCardsAllowed   += game.homeTeamYellowCards;
+            obj.redCards             += game.awayTeamRedCards;
+            obj.redCardsAllowed      += game.homeTeamRedCards;
+          }
+        });
+        teams2.push(obj);
+      });
+    })
+    .catch((error) => console.log(error));
+
+    const teams = [];
+    for (let i=0; i<teams1.length; i++) {
+      const assigned = Object.assign({}, teams1[i], teams2[i]);
+      teams.push(assigned);
+    }
+    this.setState({teams: teams});
   }
 
   async sortTeams (event) {
@@ -133,7 +201,10 @@ class Team extends Component {
     const summary = this.state.summary;
     const seasonView = this.state.seasonView;
     const leagueView = this.state.leagueView;
-    if  ('summary' in this.state && 'seasonView' in this.state && 'leagueView' in this.state && 'teams' in this.state) {
+    if  ('summary'   in this.state &&
+        'seasonView' in this.state &&
+        'leagueView' in this.state &&
+        'teams'      in this.state) {
       return (
         <div>
           <div className="centered">
@@ -144,12 +215,26 @@ class Team extends Component {
             <div>{seasonView}</div>
             <div>{leagueView}</div>
           </div>
-          <div className="control-statistics" onClick={this.handleClickOnTabs}>
-            <div data-active="summary-statistics" className="summary-statistics-tab tablink active">Summary</div>
-            <div data-active="comparing-teams" className="comparing-teams-tab tablink">Comparing Teams</div>
+          <div
+            className="control-statistics"
+            onClick={this.handleClickOnTabs}>
+            <div
+              data-active="summary-statistics"
+              className="summary-statistics-tab tablink active">
+                Summary
+            </div>
+            <div
+              data-active="comparing-teams"
+              className="comparing-teams-tab tablink">
+                Comparing Teams
+            </div>
           </div>
           <SummaryStatistics summary={summary}/>
-          <ComparingTeams summary={summary} teams={this.state.teams} sortTeams={this.sortTeams} valueSelect={this.state.valueSelect}/>
+          <ComparingTeams summary={summary}
+            teams={this.state.teams}
+            sortTeams={this.sortTeams}
+            valueSelect={this.state.valueSelect}
+          />
         </div>
       );
     } else {
