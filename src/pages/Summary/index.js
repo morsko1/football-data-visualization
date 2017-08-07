@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import * as Constants from '../../constants/';
 import SummaryStatistics from './components/SummaryStatistics.js';
 import ComparingTeams from './components/ComparingTeams.js';
+import * as Functions from '../../functions/';
 
 class Team extends Component {
   constructor (props) {
@@ -178,19 +179,6 @@ class Team extends Component {
     this.setState({teams: teams})
   }
 
-  handleClickOnTabs (event) {
-    const tabcontent = document.getElementsByClassName('tabcontent');
-    for (let i = 0; i < tabcontent.length; i++) {
-      tabcontent[i].style.display = 'none';
-    }
-    const tablinks = document.getElementsByClassName('tablink');
-      for (let i = 0; i < tablinks.length; i++) {
-        tablinks[i].classList.remove('active');
-      }
-    document.getElementById(event.target.dataset.active).style.display = 'block';
-    event.target.classList.add('active');
-  }
-
   async componentDidMount() {
     await this.saveLinkPropsToState(this.props.match.params);
     this.ajaxCallGames (this.state.season, this.state.country, this.state.league);
@@ -217,7 +205,7 @@ class Team extends Component {
           </div>
           <div
             className="control-statistics"
-            onClick={this.handleClickOnTabs}>
+            onClick={Functions.handleClickOnTabs}>
             <div
               data-active="summary-statistics"
               className="summary-statistics-tab tablink active">

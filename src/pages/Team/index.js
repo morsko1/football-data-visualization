@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import * as Constants from '../../constants/';
 import GamesList from './components/GamesList.js';
 import SummaryTeam from './components/SummaryTeam.js';
+import * as Functions from '../../functions/';
 
 class Team extends Component {
   constructor (props) {
@@ -58,19 +59,6 @@ class Team extends Component {
     .catch((error) => console.log(error));
   }
 
-  handleClickOnTabs (event) {
-    const tabcontent = document.getElementsByClassName('tabcontent');
-    for (let i = 0; i < tabcontent.length; i++) {
-      tabcontent[i].style.display = 'none';
-    }
-    const tablinks = document.getElementsByClassName('tablink');
-      for (let i = 0; i < tablinks.length; i++) {
-        tablinks[i].classList.remove('active');
-      }
-    document.getElementById(event.target.dataset.active).style.display = 'block';
-    event.target.classList.add('active');
-  }
-
   async componentDidMount() {
     await this.saveLinkPropsToState(this.props.match.params);
     this.ajaxCallGames (this.state.season, this.state.country, this.state.league, this.state.team);
@@ -84,13 +72,31 @@ class Team extends Component {
           <div className="centered">
             <Link to="/">Home</Link>
           </div>
-          <h3 className="team-name">{this.state.team}</h3>
-          <div className="control-statistics" onClick={this.handleClickOnTabs}>
-            <div data-active="games-list" className="games-list-tab tablink active">Games list</div>
-            <div data-active="summary-team" className="summary-tab tablink">Summary</div>
+          <h3 className="team-name">
+            {this.state.team}
+          </h3>
+          <div
+            className="control-statistics"
+            onClick={Functions.handleClickOnTabs}>
+              <div
+                data-active="games-list"
+                className="games-list-tab tablink active">
+                  Games list
+              </div>
+              <div
+                data-active="summary-team"
+                className="summary-tab tablink">
+                  Summary
+              </div>
           </div>
-          <GamesList goTo={this.goToAnotherTeam} gamesList={ this.state.gamesList } team={this.state.team} season={this.state.season} country={this.state.country} league={this.state.league}/>
-          <SummaryTeam summary={ this.state.summary }/>
+          <GamesList
+            goTo={this.goToAnotherTeam}
+            gamesList={ this.state.gamesList }
+            team={this.state.team}
+            season={this.state.season}
+            country={this.state.country}
+            league={this.state.league}/>
+          <SummaryTeam summary={ this.state.summary}/>
         </div>
       );
     } else {
