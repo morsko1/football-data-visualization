@@ -233,9 +233,9 @@ a:active {
 .summary-statistics-content {
   padding: 0.3em;
 }
-#summary-statistics {
+/*#summary-statistics {
   display: block;
-}
+}*/
 .summary-statistics table {
   margin: 0 auto;
 }
@@ -282,5 +282,34 @@ a:active {
 .comparing-teams-content {
   padding: 0.3em;
 }
+#comparing-teams {
+  display: block;
+}
 
+.teams-list {
+  margin-top: 1em;
+}
+.teams-list-line {
+  display: flex;
+  margin-top: 0.3em;
+}
+.teams-list-name {
+  min-width: 25%;
+  padding: 0.2em;
+}
+.teams-list-value {
+  background-color: green;
+  padding: 0.2em;
+}
+.teams-list-value-container {
+  min-width: 75%;
+}
+@media only screen and (max-device-width: 480px) {
+  .teams-list-name {
+    min-width: 45%;
+  }
+  .teams-list-value-container {
+    min-width: 55%;
+  }
+}/*@media end*/
 /* ========================== COMPARING TEAMS COMPONENT END =======================*/

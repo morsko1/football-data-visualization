@@ -208,12 +208,12 @@ class Team extends Component {
             onClick={Functions.handleClickOnTabs}>
             <div
               data-active="summary-statistics"
-              className="summary-statistics-tab tablink active">
+              className="summary-statistics-tab tablink ">
                 Summary
             </div>
             <div
               data-active="comparing-teams"
-              className="comparing-teams-tab tablink">
+              className="comparing-teams-tab tablink active">
                 Comparing Teams
             </div>
           </div>

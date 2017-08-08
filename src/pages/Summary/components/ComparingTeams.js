@@ -17,9 +17,19 @@ class ComparingTeams extends Component {
       optionsList.push(opt);
     }
 
+    const maxValue = teams[0][valueSelect];
     const teamsList = teams.map((item) => {
-      return <div key={item.id}>
-                {item.name} - {item[valueSelect]}
+      return <div
+                className="teams-list-line"
+                key={item.id}>
+                  <div className="teams-list-name">{item.name}</div>
+                  <div className="teams-list-value-container">
+                    <div 
+                      className="teams-list-value"
+                      style={{width: ((item[valueSelect] / maxValue) * 100) + '%'}}>
+                      {item[valueSelect] || ''}
+                    </div>
+                  </div>
               </div>
     });
     return (
@@ -27,14 +37,17 @@ class ComparingTeams extends Component {
         id="comparing-teams"
         className="comparing-teams tabcontent">
           <div className="comparing-teams-content">
-            Order by 
+            Order by&nbsp;
             <select
               name="teams"
               onChange={sortTeams}
               value={valueSelect}>
                 {optionsList}
             </select>
-            {teamsList}
+            <br/>
+            <div className="teams-list">
+              {teamsList}
+            </div>
           </div>
       </div>
     );
