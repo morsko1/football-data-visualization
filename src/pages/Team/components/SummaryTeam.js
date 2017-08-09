@@ -25,6 +25,24 @@ class Summary extends Component {
     const goalsScoredAwayWidth = (summary.goalsAway / (summary.goalsAway + summary.goalsAwayAllowed)) * 100;
     const goalsAllowedAwayWidth = (summary.goalsAwayAllowed / (summary.goalsAway + summary.goalsAwayAllowed)) * 100;
 
+    const shotsWidth = (summary.shots / (summary.shots + summary.shotsAllowed)) * 100;
+    const shotsAllowedWidth = (summary.shotsAllowed / (summary.shots + summary.shotsAllowed)) * 100;
+
+    const shotsOnTargetWidth = (summary.shotsOnTarget / (summary.shots + summary.shotsAllowed)) * 100;
+    const shotsOnTargetAllowedWidth = (summary.shotsOnTargetAllowed / (summary.shots + summary.shotsAllowed)) * 100;
+
+    const cornersWidth = (summary.corners / (summary.corners + summary.cornersAllowed)) * 100;
+    const cornersAllowedWidth = (summary.cornersAllowed / (summary.corners + summary.cornersAllowed)) * 100;
+
+    const foulsWidth = (summary.fouls / (summary.fouls + summary.foulsAllowed)) * 100;
+    const foulsAllowedWidth = (summary.foulsAllowed / (summary.fouls + summary.foulsAllowed)) * 100;
+
+    const yellowCardsWidth = (summary.yellowCards / (summary.yellowCards + summary.yellowCardsAllowed)) * 100;
+    const yellowCardsAllowedWidth = (summary.yellowCardsAllowed / (summary.yellowCards + summary.yellowCardsAllowed)) * 100;
+
+    const redCardsWidth = (summary.redCards / (summary.redCards + summary.redCardsAllowed)) * 100;
+    const redCardsAllowedWidth = (summary.redCardsAllowed / (summary.redCards + summary.redCardsAllowed)) * 100;
+
     return (
       <div id="summary-team" className="summary-team tabcontent">
         <div className="summary-team-content">
@@ -63,6 +81,38 @@ class Summary extends Component {
           <div className="line-diagram">
             <div className="wins" style={{width: goalsScoredAwayWidth + '%'}}>{summary.goalsAway || ''}</div>
             <div className="losses" style={{width: goalsAllowedAwayWidth + '%'}}>{summary.goalsAwayAllowed || ''}</div>
+          </div>
+          <br/>
+          <div className="title">Shots:</div>
+          <div className="line-diagram">
+            <div className="wins" style={{width: shotsWidth + '%'}}>{summary.shots || ''}</div>
+            <div className="losses" style={{width: shotsAllowedWidth + '%'}}>{summary.shotsAllowed || ''}</div>
+          </div>
+          <div className="title">Shots on target:</div>
+          <div className="line-diagram-splitted">
+            <div className="goals-scored" style={{width: shotsOnTargetWidth + '%'}}>{summary.shotsOnTarget || ''}</div>
+            <div className="goals-allowed" style={{width: shotsOnTargetAllowedWidth + '%'}}>{summary.shotsOnTargetAllowed || ''}</div>
+          </div>
+          <br/>
+           <div className="title">Corners:</div>
+          <div className="line-diagram">
+            <div className="wins" style={{width: cornersWidth + '%'}}>{summary.corners || ''}</div>
+            <div className="losses" style={{width: cornersAllowedWidth + '%'}}>{summary.cornersAllowed || ''}</div>
+          </div>
+          <div className="title">Fouls:</div>
+          <div className="line-diagram">
+            <div className="wins" style={{width: foulsWidth + '%'}}>{summary.fouls || ''}</div>
+            <div className="losses" style={{width: foulsAllowedWidth + '%'}}>{summary.foulsAllowed || ''}</div>
+          </div>
+          <div className="title">Yellow cards:</div>
+          <div className="line-diagram">
+            <div className="wins" style={{width: yellowCardsWidth + '%'}}>{summary.yellowCards || ''}</div>
+            <div className="losses" style={{width: yellowCardsAllowedWidth + '%'}}>{summary.yellowCardsAllowed || ''}</div>
+          </div>
+          <div className="title">Red cards:</div>
+          <div className="line-diagram">
+            <div className="wins" style={{width: redCardsWidth + '%'}}>{summary.redCards || ''}</div>
+            <div className="losses" style={{width: redCardsAllowedWidth + '%'}}>{summary.redCardsAllowed || ''}</div>
           </div>
         </div>
       </div>

@@ -181,6 +181,7 @@ a:active {
 }
 .line-diagram {
   display: flex;
+  margin-bottom: 0.5em;
 }
 .line-diagram .wins {
   background-color: green;
