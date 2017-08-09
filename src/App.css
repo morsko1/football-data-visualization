@@ -23,6 +23,10 @@ a:active {
   max-width: 1200px;
   margin: 0 auto;
 }
+.active {
+  border-bottom: 3px solid #000;
+}
+/* ========================== HOME COMPONENT =======================*/
 .standings-table {
   margin: 0 auto;
   border-collapse: collapse;
@@ -51,6 +55,9 @@ a:active {
 .championships-list{
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
+  min-width: 500px;
+  margin: 0 auto;
 }
 .link-to-championship {
   padding: 0.5em;
@@ -81,9 +88,24 @@ a:active {
   cursor: pointer;
   background-color: #eee;
 }
-.active {
-  border-bottom: 3px solid #000;
-}
+@media only screen and (max-device-width: 480px) {
+  /*при ширине экрана меньше 480px скрыть колонку с голами*/
+  .standings-table td:nth-child(7), th:nth-child(7) {
+    display: none
+  }
+  .championships-list{
+    min-width: 0;
+    width: 320px;
+  }
+  .link-to-championship {
+    width: 100%;
+    text-align: center;
+  }
+  .championships-list .active {
+    background-color: #eee;
+  }
+}/*@media end*/
+/* ========================== HOME COMPONENT END =======================*/
 
 /* ========================== TEAM COMPONENT =======================*/
 .team-name {
@@ -113,7 +135,6 @@ a:active {
   background-color: #eee;
   position: relative;
 }
-
 .game-num {
   position: absolute;
   top: 0.3em;
@@ -139,7 +160,6 @@ a:active {
   width: 50%;
   text-align: center;
 }
-
 .tabcontent{
   display: none;
   animation: fadeEffect 0.5s;
@@ -151,7 +171,6 @@ a:active {
   from {opacity: 0;}
   to {opacity: 1;}
 }
-
 .summary-team {
   max-width: 500px;
   margin: 0 auto;
@@ -189,7 +208,6 @@ a:active {
 /* ========================== TEAM COMPONENT END =======================*/
 
 /* ========================== GAME COMPONENT =======================*/
-
 .game {
   max-width: 500px;
   margin: 0 auto;
@@ -217,7 +235,6 @@ a:active {
   width: 33%;
   text-align: center;
 }
-
 /* ========================== GAME COMPONENT END =======================*/
 
 /* ========================== SUMMARY STATISTICS COMPONENT =======================*/
@@ -248,7 +265,6 @@ a:active {
   margin-top: 1em;
   font-weight: bold;
 }
-
 .line-diagram-splitted {
   display: flex;
   justify-content: space-between;
@@ -266,7 +282,6 @@ a:active {
   padding-top: 0.2em;
   padding-bottom: 0.2em;
 }
-
 /* ========================== SUMMARY STATISTICS COMPONENT END =======================*/
 
 /* ========================== COMPARING TEAMS COMPONENT =======================*/
