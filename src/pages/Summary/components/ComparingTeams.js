@@ -7,30 +7,37 @@ class ComparingTeams extends Component {
     const sortTeams = this.props.sortTeams;
 
     const optionsList = [];
-    for (let prop in teams[0]) {
+    for (const prop in teams[0]) {
       if (prop === 'id' || prop === 'name') continue;
-      const opt = <option
-                    value={prop}
-                    key={prop}>
-                      {prop.replace(/([A-Z])/g, ' $1').replace(/^./, (str) => str.toUpperCase())}{/*camelCase => Camel Case*/}
-                  </option>;
-      optionsList.push(opt);
+      const option = <option
+                        value={prop}
+                        key={prop}>
+                          {/*'camelCase' => 'Camel Case'*/}
+                          {prop.replace(/([A-Z])/g, ' $1').replace(/^./, (str) => str.toUpperCase())}
+                      </option>;
+      optionsList.push(option);
     }
 
     const maxValue = teams[0][valueSelect];
-    const teamsList = teams.map((item) => {
-      return <div
-                className="teams-list-line"
-                key={item.id}>
-                  <div className="teams-list-name">{item.name}</div>
-                  <div className="teams-list-value-container">
-                    <div 
-                      className="teams-list-value"
-                      style={{width: ((item[valueSelect] / maxValue) * 100) + '%'}}>
-                      {item[valueSelect] || ''}
-                    </div>
-                  </div>
+    const teamsList = teams.map((team) => {
+      return (
+        <div
+          className="teams-list-line"
+          key={team.id}>
+            <div className="teams-list-name">{team.name}</div>
+            <div className="teams-list-value-container">
+              <div
+                className="teams-list-value"
+                style={{
+                  width: ((team[valueSelect] / maxValue) * 100) + '%',
+                  //если значение нулевое -> не показывать элемент
+                  display: (team[valueSelect]) ? 'block' : 'none'
+                }}>
+                  {team[valueSelect]}
               </div>
+            </div>
+        </div>
+      );
     });
     return (
       <div
@@ -44,7 +51,6 @@ class ComparingTeams extends Component {
               value={valueSelect}>
                 {optionsList}
             </select>
-            <br/>
             <div className="teams-list">
               {teamsList}
             </div>
