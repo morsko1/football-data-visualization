@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import * as Constants from '../../constants/';
-import GamesList from './components/GamesList.js';
-import SummaryTeam from './components/SummaryTeam.js';
+import GamesList from './components/GamesList';
+import SummaryTeam from './components/SummaryTeam';
 import * as Functions from '../../functions/';
 
 class Team extends Component {

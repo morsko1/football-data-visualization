@@ -32,25 +32,26 @@ class GamesList extends Component {
         }
       }
 
-      return <div key={item.date} className="game-single" style={{borderRight: '10px solid ' +  color}}>
-              <span className="game-num">{i+1}</span>
-              <div className="game-date">{item.date}</div>
-              <div className="game-teams">
-                <div className="game-home-team">
-                {/*<Link className="link-to-team" to={`${this.props.season}/${this.props.country}/${this.props.league}/${item.homeTeam}`} onClick={this.props.goTo.bind(this, item.homeTeam)} replace>{item.homeTeam}</Link>*/}
-                  <Link className="link-to-team" to={`${item.homeTeam}`} onClick={this.props.goTo.bind(this, item.homeTeam)}>{item.homeTeam}</Link>
-                </div>
-                <div className="game-away-team">
-                  <Link className="link-to-team" to={`${item.awayTeam}`} onClick={this.props.goTo.bind(this, item.awayTeam)}>{item.awayTeam}</Link>
-                </div>
-              </div>
-              <div className="game-goals">
-                <div className="game-home-team-goals">{item.fullTimeHomeTeamGoals}</div>
-                <div className="game-away-team-goals">{item.fullTimeAwayTeamGoals}</div>
-              </div>
-              <Link className="link-to-game" to={`games/${item.id}`}>details...</Link>
-              <div className="clear"></div>
+      return (
+        <div key={item.date} className="game-single" style={{borderRight: '10px solid ' +  color}}>
+          <span className="game-num">{i+1}</span>
+          <div className="game-date">{item.date}</div>
+          <div className="game-teams">
+            <div className="game-home-team">
+              <Link className="link-to-team" to={`${item.homeTeam}`} onClick={this.props.goTo.bind(this, item.homeTeam)}>{item.homeTeam}</Link>
             </div>
+            <div className="game-away-team">
+              <Link className="link-to-team" to={`${item.awayTeam}`} onClick={this.props.goTo.bind(this, item.awayTeam)}>{item.awayTeam}</Link>
+            </div>
+          </div>
+          <div className="game-goals">
+            <div className="game-home-team-goals">{item.fullTimeHomeTeamGoals}</div>
+            <div className="game-away-team-goals">{item.fullTimeAwayTeamGoals}</div>
+          </div>
+          <Link className="link-to-game" to={`games/${item.id}`}>details...</Link>
+          <div className="clear"></div>
+        </div>
+      );
     });
     return(
       <div id="games-list" className="games-list tabcontent">

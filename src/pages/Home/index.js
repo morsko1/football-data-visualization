@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import * as Constants from '../../constants/';
-import StandingsTable from './components/StandingsTable.js';
-import ChampionshipsComponent from './components/ChampionshipsComponent.js';
+import StandingsTable from './components/StandingsTable';
+import ChampionshipsComponent from './components/ChampionshipsComponent';
 
 class Home extends Component {
   constructor (props) {

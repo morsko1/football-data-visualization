@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import * as Constants from '../../constants/';
-import SummaryStatistics from './components/SummaryStatistics.js';
-import ComparingTeams from './components/ComparingTeams.js';
+import SummaryStatistics from './components/SummaryStatistics';
+import ComparingTeams from './components/ComparingTeams';
 import * as Functions from '../../functions/';
 
 class Team extends Component {
