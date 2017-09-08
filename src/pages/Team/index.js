@@ -128,6 +128,13 @@ class Team extends Component {
     this.ajaxCallSummaryTeam (this.state.season, this.state.country, this.state.league, this.state.team);
   }
 
+  async componentWillReceiveProps(newProps) {
+    await this.saveLinkPropsToState(newProps.match.params);
+    this.ajaxCallGames (this.state.season, this.state.country, this.state.league, this.state.team);
+    this.ajaxCallSummaryTeam (this.state.season, this.state.country, this.state.league, this.state.team);
+    window.scrollTo(0, 0);
+  }
+
   render() {
     if ('gamesList' in this.state && 'team' in this.state && 'summary' in this.state) {
       return (
