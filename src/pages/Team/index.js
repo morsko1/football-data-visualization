@@ -45,6 +45,7 @@ class Team extends Component {
     await this.setState({team: team});
     this.ajaxCallGames (this.state.season, this.state.country, this.state.league, this.state.team);
     this.ajaxCallSummaryTeam (this.state.season, this.state.country, this.state.league, this.state.team);
+    window.scrollTo(0, 0);
   }
 
   async ajaxCallSummaryTeam (season, country, league, team) {
